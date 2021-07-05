@@ -5,6 +5,16 @@ A React Native application which works both on Android and Apple, to show ones C
 It's still very much in beta, still requires more testing.
 I do plan to add more features. But nothing which needs any private data.
 
+## Screenshots
+
+<p>
+      <img src="./images/wallet_balance.png" width="250">
+      <img src="./images/wallet_empty.png" width="250">
+      <img src="./images/addresses_empty.png" width="250">
+       <img src="./images/add_address.png" width="250">
+      <img src="./images/added_address.png" width="250">
+</p>
+
 ## Donate
 
 If you enjoy using the app feel free to leave a small donation
