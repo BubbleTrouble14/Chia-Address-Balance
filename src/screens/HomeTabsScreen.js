@@ -83,17 +83,15 @@ const HomeTabs = () => {
           tabPress: (e) => {
             e.preventDefault();
 
-            Linking.canOpenURL(
-              'https://github.com/BubbleTrouble14/BubbleTrouble14/blob/main/README.md'
-            ).then((supported) => {
-              if (supported) {
-                Linking.openURL(
-                  'https://github.com/BubbleTrouble14/BubbleTrouble14/blob/main/README.md'
-                );
-              } else {
-                console.log("Don't know how to open URI");
+            Linking.canOpenURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance').then(
+              (supported) => {
+                if (supported) {
+                  Linking.openURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance');
+                } else {
+                  console.log("Don't know how to open URI");
+                }
               }
-            });
+            );
           },
         }}
         options={{

@@ -21,6 +21,8 @@ import { ToastProvider } from 'react-native-fast-toast';
 import { getObject, saveObject } from './src/LocalStorage';
 import { Text } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Switch, IconButton } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   NavigationContainer,
@@ -57,9 +59,13 @@ const DarkTheme = {
   roundness: 2,
   colors: {
     ...CombinedDarkTheme.colors,
-    background: '#303030',
+    // background: '#303030',
+    // background: '#273038',
+    background: '#182d40',
+    surface: '#101e2b',
     accent: '#ff9800',
     primary: '#35AB52',
+
     // primary: '#273038',
     // accent: '#35AB52',
   },
@@ -116,6 +122,13 @@ const App = () => {
     [toggleTheme, isThemeDark]
   );
 
+  const HeaderLeft = () => {
+    const navigation = useNavigation();
+    return (
+      <IconButton icon="cog" onPress={() => navigation.navigate(Settings, { name: 'Settings' })} />
+    );
+  };
+
   if (loading)
     return (
       <SafeAreaView style={{ backgroundColor: theme.colors.background }}>
@@ -131,7 +144,24 @@ const App = () => {
             <NavigationContainer theme={theme}>
               <StatusBar backgroundColor={theme.colors.background} barStyle="light-content" />
               <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeTabs} />
+                <Stack.Screen
+                  name="Home"
+                  component={HomeTabs}
+                  options={{
+                    headerStyle: {
+                      backgroundColor: theme.colors.background,
+                    },
+                    headerTitle: () => <HeaderLeft />,
+                    headerRight: () => (
+                      <Switch
+                        onValueChange={() => {
+                          toggleTheme();
+                        }}
+                        value={isThemeDark}
+                      />
+                    ),
+                  }}
+                />
                 <Stack.Screen name="Settings" component={Settings} />
               </Stack.Navigator>
             </NavigationContainer>

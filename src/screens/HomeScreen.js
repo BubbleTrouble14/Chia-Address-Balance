@@ -143,18 +143,18 @@ const WalletBalance = (props) => {
 const HomeScreen = ({ navigation }) => {
   const theme = useTheme();
   const [state, setState] = useState('Loading');
-  const { toggleTheme, isThemeDark } = useContext(ThemeContext);
+  // const { toggleTheme, isThemeDark } = useContext(ThemeContext);
 
   return (
     <SafeAreaView
       style={{
-        paddingTop: 60,
+        paddingTop: 30,
         backgroundColor: theme.colors.background,
         alignItems: 'center',
         flex: 1,
       }}
     >
-      <Switch
+      {/* <Switch
         onValueChange={() => {
           toggleTheme();
         }}
@@ -164,8 +164,8 @@ const HomeScreen = ({ navigation }) => {
           top: 16,
         }}
         value={isThemeDark}
-      />
-      <IconButton
+      /> */}
+      {/* <IconButton
         icon="cog"
         style={{
           position: 'absolute',
@@ -174,7 +174,7 @@ const HomeScreen = ({ navigation }) => {
         }}
         size={20}
         onPress={() => navigation.navigate('Settings', { name: 'Settings' })}
-      />
+      /> */}
       {/* <MaterialCommunityIcons
         name="cog"
         color={theme.colors.text}
