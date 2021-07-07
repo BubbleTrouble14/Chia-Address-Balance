@@ -61,3 +61,14 @@ export const getCurrentPrice = () => {
       console.error(error);
     });
 };
+
+export const getExchangeRates = () => {
+  return fetch('http://currencyexchangeservice-env.eba-qcksh9ek.eu-central-1.elasticbeanstalk.com/')
+    .then((response) => response.json())
+    .then((json) => {
+      return json;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};

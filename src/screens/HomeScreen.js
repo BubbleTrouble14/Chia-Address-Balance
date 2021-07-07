@@ -17,6 +17,7 @@ import {
 import { getBalance, getCurrentPrice } from '../Api';
 import { getObject, saveObject } from './../LocalStorage';
 import ThemeContext from '../contexts/ThemeContext';
+import CurrencyContext from '../contexts/CurrencyContext';
 
 const WalletBalance = (props) => {
   const { state, setState } = props;
@@ -24,6 +25,7 @@ const WalletBalance = (props) => {
   //const [userData, setUserData] = useState(getObject('userData'));
   const [data, setData] = useState([]);
   const { addresses } = useContext(AddressContext);
+  const { currency, exchange } = useContext(CurrencyContext);
   const [chiaCoins, setChiaCoins] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
 
@@ -50,6 +52,22 @@ const WalletBalance = (props) => {
       .catch((error) => {
         console.error(error);
       });
+  };
+
+  const getPrice = () => {
+    // console.log(exchange[currency]);
+    // console.log(exchange);
+    if (chiaCoins) {
+      if (currency === 'USD')
+        return currency + ' ' + ((chiaCoins / Math.pow(10, 12)) * currentPrice).toFixed(2);
+      return (
+        currency +
+        ' ' +
+        ((chiaCoins / Math.pow(10, 12)) * currentPrice * exchange[currency].value).toFixed(2)
+      );
+    } else {
+      return currency + ' ' + 0;
+    }
   };
 
   useEffect(() => {
@@ -91,7 +109,7 @@ const WalletBalance = (props) => {
             color: theme.colors.text,
           }}
         >
-          {chiaCoins ? ((chiaCoins / Math.pow(10, 12)) * currentPrice).toFixed(2) + ' $' : 0 + ' $'}
+          {getPrice()}
         </Text>
       </View>
     );

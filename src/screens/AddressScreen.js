@@ -136,24 +136,14 @@ const Address = () => {
           <Dialog.Title>Add Chia Address</Dialog.Title>
           <Dialog.Content>
             <TextInput
-              style={{
-                textDecorationLine: 'underline',
-                alignSelf: 'stretch',
-                // borderBottomColor: '#000',
-                margin: 5,
-                // borderBottomColor: '#000', // Add this to specify bottom border color
-                borderBottomWidth: 2, // Add this to specify bottom border thickness
-              }}
               placeholder="Enter a Name for Address"
-              //   value={textInput}
               onChangeText={(text) => {
                 setTextTitleInput(text);
               }}
             ></TextInput>
             <TextInput
-              // style={styles.input}
+              style={{ marginTop: 16 }}
               placeholder="Enter Chia Address"
-              //   value={textInput}
               onChangeText={(text) => {
                 setTextInput(text);
               }}
@@ -161,7 +151,6 @@ const Address = () => {
           </Dialog.Content>
           <Dialog.Actions>
             <Button
-              color="#35AB52"
               onPress={() => {
                 // setTextInput('xch13v9r3wkceh6h5juecgzcfyf5x6ll9p2ehh03m2z46qyrdutp258qy4zu42');
                 let formattedInputText = inputText;
@@ -207,7 +196,6 @@ const Address = () => {
           </Dialog.Content>
           <Dialog.Actions>
             <Button
-              color="#35AB52"
               onPress={() => {
                 hideDeleteDialog();
                 removeAddress(selectedAddress);
