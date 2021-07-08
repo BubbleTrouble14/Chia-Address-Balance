@@ -3,7 +3,7 @@ import AddressContext from '../contexts/AddressContext';
 
 import LogoIcon from '../assets/svgs/LogoIcon';
 import { useTheme, Appbar, TouchableRipple, Switch, Text, IconButton } from 'react-native-paper';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Platform } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import getSymbolFromCurrency from 'currency-symbol-map';
 
@@ -99,7 +99,7 @@ const WalletBalance = (props) => {
       >
         <Text
           style={{
-        //    fontFamily: 'OpenSans-Bold',
+            fontFamily: Platform.OS === 'android' ? 'OpenSans-Bold' : 'OpenSans Bold',
             fontSize: 36,
             color: theme.colors.text,
           }}
@@ -109,7 +109,7 @@ const WalletBalance = (props) => {
         <View style={{ flexDirection: 'row', marginTop: 16 }}>
           <Text
             style={{
-           //   fontFamily: 'OpenSans-Regular',
+              fontFamily: Platform.OS === 'android' ? 'OpenSans-Regular' : 'OpenSans Regular',
               fontSize: 19,
               marginEnd: 8,
               textAlignVertical: 'center',
@@ -120,7 +120,7 @@ const WalletBalance = (props) => {
           </Text>
           <Text
             style={{
-         //     fontFamily: 'OpenSans-Regular',
+              fontFamily: Platform.OS === 'android' ? 'OpenSans-Regular' : 'OpenSans Regular',
               textAlignVertical: 'center',
               fontSize: 20,
               color: theme.colors.text,
@@ -191,7 +191,7 @@ const HomeScreen = () => {
     >
       <Text
         style={{
-        //  fontFamily: 'OpenSans-Bold',
+          fontFamily: Platform.OS === 'android' ? 'OpenSans-Bold' : 'OpenSans Bold',
           color: theme.colors.text,
           fontSize: 40,
           textAlign: 'center',
