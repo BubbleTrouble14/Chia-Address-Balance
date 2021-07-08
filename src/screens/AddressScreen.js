@@ -89,7 +89,7 @@ const Address = () => {
           style={{
             textAlign: 'center',
             color: 'white',
-            fontFamily: Platform.OS === 'android' ? 'OpenSans-Regular' : 'OpenSans Regular',
+            fontFamily: 'OpenSans-Regular',
             color: theme.colors.text,
             fontSize: 24,
           }}
