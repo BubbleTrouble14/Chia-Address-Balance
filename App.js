@@ -8,18 +8,14 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Linking, View, SafeAreaView, StatusBar } from 'react-native';
+import { Linking, View, SafeAreaView, StatusBar, UIManager, Platform } from 'react-native';
 import HomeTabs from './src/screens/HomeTabsScreen';
 import Settings from './src/screens/SettingsScreen';
 import { ThemeContextProvider } from './src/contexts/ThemeContext';
 import { AddressContextProvider } from './src/contexts/AddressContext';
 import { useEffect } from 'react';
-import AddressIcon from './src/assets/svgs/AddressIcon';
-import DonateIcon from './src/assets/svgs/DonateIcon';
-import WalletIcon from './src/assets/svgs/WalletIcon';
 import { ToastProvider } from 'react-native-fast-toast';
 import { getObject, saveObject } from './src/LocalStorage';
-import { Text } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   createStackNavigator,
@@ -44,6 +40,7 @@ import { getExchangeRates } from './src/Api';
 import { CurrencyContextProvider } from './src/contexts/CurrencyContext';
 import CurrencySelection from './src/screens/CurrencySelectionScreen';
 import { addDataToExchangeO } from './src/Utils';
+import numbro from 'numbro';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
@@ -96,7 +93,7 @@ export const fetchInitData = () => {
 const addDataToExchange = (data) => {
   const obj = {
     USD: {
-      value: 'USD',
+      value: 1,
       icon: '🇪🇺',
       title: 'United States Dollar',
     },
@@ -107,6 +104,15 @@ const addDataToExchange = (data) => {
   });
   return obj;
 };
+
+if (Platform.OS === 'android') {
+  require('intl');
+  require('intl/locale-data/jsonp/fr-BE');
+  require('intl/locale-data/jsonp/nl-BE');
+  require('intl/locale-data/jsonp/it-IT');
+  require('intl/locale-data/jsonp/en-US');
+  require('intl/locale-data/jsonp/en-IN'); // load the required locale details
+}
 
 const App = () => {
   const [addresses, setAddress] = useState([]);
@@ -146,7 +152,6 @@ const App = () => {
           setCurrency(data.currency);
         }
         if (data.exchange) {
-          // const x = addDataToExchange(data.exchange);
           setExchange(addDataToExchange(data.exchange));
         }
         if (data.isThemeDark) {
@@ -157,34 +162,7 @@ const App = () => {
       .catch((ex) => {
         console.log(ex);
       });
-    // getObject('addresses').then((addresses) => {
-    //   if (addresses) {
-    //     setAddress(addresses);
-    //   }
-    //   setLoading(false);
-    // });
-    // getExchangeRates().then((data) => setExchange(data));
   }, []);
-
-  const navigatorOptions = {
-    headerShown: false,
-    cardStyle: { backgroundColor: 'transparent' },
-    cardStyleInterpolator: ({ current: { progress } }) => ({
-      cardStyle: {
-        opacity: progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 1],
-        }),
-      },
-      overlayStyle: {
-        opacity: progress.interpolate({
-          inputRange: [0, 1],
-          outputRange: [0, 0.5],
-          extrapolate: 'clamp',
-        }),
-      },
-    }),
-  };
 
   let theme = isThemeDark ? DarkTheme : LightTheme;
 
@@ -200,13 +178,6 @@ const App = () => {
     }),
     [toggleTheme, isThemeDark]
   );
-
-  const HeaderLeft = () => {
-    const navigation = useNavigation();
-    return (
-      <IconButton icon="cog" onPress={() => navigation.navigate(Settings, { name: 'Settings' })} />
-    );
-  };
 
   if (loading)
     return (
@@ -236,7 +207,7 @@ const App = () => {
                           <IconButton
                             style={{ marginStart: 16 }}
                             icon="cog"
-                            onPress={() => navigation.navigate(Settings, { name: 'Settings' })}
+                            onPress={() => navigation.navigate('Settings')}
                           />
                         ),
                         headerTitle: '',

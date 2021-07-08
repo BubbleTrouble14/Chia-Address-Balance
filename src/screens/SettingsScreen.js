@@ -44,7 +44,7 @@ const Settings = () => {
           backgroundColor: theme.colors.surface,
           borderRadius: 10,
         }}
-        onPress={() => navigation.navigate(CurrencySelection, { name: 'CurrencySelection' })}
+        onPress={() => navigation.navigate('CurrencySelection')}
       >
         <Card.Title title="Currency" subtitle="Set preferred currency." right={LeftContent} />
       </Card>

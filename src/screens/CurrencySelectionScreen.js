@@ -66,6 +66,8 @@ const CurrencySelection = ({ navigation }) => {
     />
   );
 
+  if (!exchange) return <Text>No Data</Text>;
+
   return (
     <SafeAreaView
       style={{

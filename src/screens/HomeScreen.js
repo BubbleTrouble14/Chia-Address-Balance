@@ -18,6 +18,7 @@ import { getBalance, getCurrentPrice } from '../Api';
 import { getObject, saveObject } from './../LocalStorage';
 import ThemeContext from '../contexts/ThemeContext';
 import CurrencyContext from '../contexts/CurrencyContext';
+import numbro from 'numbro';
 
 const WalletBalance = (props) => {
   const { state, setState } = props;
@@ -54,19 +55,23 @@ const WalletBalance = (props) => {
       });
   };
 
+  const formatePrice = (price, currency) => {
+    return price.toLocaleString('en-US', {
+      style: 'currency',
+      currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
+
   const getPrice = () => {
-    // console.log(exchange[currency]);
-    // console.log(exchange);
     if (chiaCoins) {
-      if (currency === 'USD')
-        return currency + ' ' + ((chiaCoins / Math.pow(10, 12)) * currentPrice).toFixed(2);
-      return (
-        currency +
-        ' ' +
-        ((chiaCoins / Math.pow(10, 12)) * currentPrice * exchange[currency].value).toFixed(2)
+      return formatePrice(
+        (chiaCoins / Math.pow(10, 12)) * currentPrice * exchange[currency].value,
+        currency
       );
     } else {
-      return currency + ' ' + 0;
+      return formatePrice(0, currency); //+ ' ' + 0;
     }
   };
 
