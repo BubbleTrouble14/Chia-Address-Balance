@@ -18,7 +18,6 @@ import { getBalance, getCurrentPrice } from '../Api';
 import { getObject, saveObject } from './../LocalStorage';
 import ThemeContext from '../contexts/ThemeContext';
 import CurrencyContext from '../contexts/CurrencyContext';
-import numbro from 'numbro';
 
 const WalletBalance = (props) => {
   const { state, setState } = props;
