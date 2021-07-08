@@ -40,7 +40,6 @@ import { getExchangeRates } from './src/Api';
 import { CurrencyContextProvider } from './src/contexts/CurrencyContext';
 import CurrencySelection from './src/screens/CurrencySelectionScreen';
 import { addDataToExchangeO } from './src/Utils';
-import numbro from 'numbro';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
