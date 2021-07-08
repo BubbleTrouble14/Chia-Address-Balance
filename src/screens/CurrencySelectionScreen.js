@@ -39,9 +39,11 @@ const Item = ({ item, onPress, backgroundColor }) => (
   <Card
     onPress={onPress}
     style={{
-      marginEnd: 16,
-      marginLeft: 16,
+      // marginEnd: 16,
+      // marginLeft: 16,
+      // marginTop: 8,
       marginTop: 8,
+      marginBottom: 8,
       borderRadius: 10,
       backgroundColor: backgroundColor,
     }}
@@ -75,6 +77,7 @@ const CurrencySelection = ({ navigation }) => {
       }}
     >
       <FlatList
+        style={{ paddingRight: 16, paddingLeft: 16 }}
         data={Object.entries(exchange)
           .flatMap((item) => {
             const [key, value] = item;

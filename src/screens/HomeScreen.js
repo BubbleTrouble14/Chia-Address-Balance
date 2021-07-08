@@ -5,6 +5,7 @@ import LogoIcon from '../assets/svgs/LogoIcon';
 import { useTheme, Appbar, TouchableRipple, Switch, Text, IconButton } from 'react-native-paper';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import getSymbolFromCurrency from 'currency-symbol-map';
 
 import {
   Colors,
@@ -19,11 +20,33 @@ import { getObject, saveObject } from './../LocalStorage';
 import ThemeContext from '../contexts/ThemeContext';
 import CurrencyContext from '../contexts/CurrencyContext';
 
+const formatPrice = (price, currency) => {
+  const currencyOptions = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  }).resolvedOptions();
+
+  const value = price.toLocaleString('en-US', {
+    ...currencyOptions,
+    style: 'decimal',
+  });
+  return value;
+};
+
+const getPrice = (chiaCoins, currentPrice, currency, exchange) => {
+  if (chiaCoins) {
+    return formatPrice(
+      (chiaCoins / Math.pow(10, 12)) * currentPrice * exchange[currency].value,
+      currency
+    );
+  } else {
+    return formatPrice(0, currency);
+  }
+};
+
 const WalletBalance = (props) => {
   const { state, setState } = props;
   const theme = useTheme();
-  //const [userData, setUserData] = useState(getObject('userData'));
-  const [data, setData] = useState([]);
   const { addresses } = useContext(AddressContext);
   const { currency, exchange } = useContext(CurrencyContext);
   const [chiaCoins, setChiaCoins] = useState(0);
@@ -31,7 +54,6 @@ const WalletBalance = (props) => {
 
   const fetchBalanceForAddresses = (currentPrice, wallets) => {
     const promises = wallets.map((data) => data.promise);
-    const addresses = wallets.map((data) => data.address);
     currentPrice
       .then((currentPrice) => {
         if (currentPrice) {
@@ -40,7 +62,6 @@ const WalletBalance = (props) => {
             .then((wallet) => {
               wallet.forEach((wallet, index) => {
                 setChiaCoins((prevCoins) => prevCoins + wallet.netBalance);
-                setData((prevState) => prevState.concat({ address: addresses[index], wallet }));
               });
               setState('Success');
             })
@@ -52,26 +73,6 @@ const WalletBalance = (props) => {
       .catch((error) => {
         console.error(error);
       });
-  };
-
-  const formatePrice = (price, currency) => {
-    return price.toLocaleString('en-US', {
-      style: 'currency',
-      currency,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  };
-
-  const getPrice = () => {
-    if (chiaCoins) {
-      return formatePrice(
-        (chiaCoins / Math.pow(10, 12)) * currentPrice * exchange[currency].value,
-        currency
-      );
-    } else {
-      return formatePrice(0, currency); //+ ' ' + 0;
-    }
   };
 
   useEffect(() => {
@@ -105,16 +106,29 @@ const WalletBalance = (props) => {
         >
           {chiaCoins ? (chiaCoins / Math.pow(10, 12)).toFixed(2) + ' XCH' : 0 + ' XCH'}
         </Text>
-        <Text
-          style={{
-            fontFamily: 'OpenSans-Regular',
-            marginTop: 16,
-            fontSize: 20,
-            color: theme.colors.text,
-          }}
-        >
-          {getPrice()}
-        </Text>
+        <View style={{ flexDirection: 'row', marginTop: 16 }}>
+          <Text
+            style={{
+              fontFamily: 'OpenSans-Regular',
+              fontSize: 19,
+              marginEnd: 8,
+              textAlignVertical: 'center',
+              color: theme.colors.text,
+            }}
+          >
+            {getSymbolFromCurrency(currency)}
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'OpenSans-Regular',
+              textAlignVertical: 'center',
+              fontSize: 20,
+              color: theme.colors.text,
+            }}
+          >
+            {getPrice(chiaCoins, currentPrice, currency, exchange)}
+          </Text>
+        </View>
       </View>
     );
   } else if (state === 'Error') {
@@ -162,10 +176,9 @@ const WalletBalance = (props) => {
   }
 };
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   const theme = useTheme();
   const [state, setState] = useState('Loading');
-  // const { toggleTheme, isThemeDark } = useContext(ThemeContext);
 
   return (
     <SafeAreaView
@@ -176,37 +189,6 @@ const HomeScreen = ({ navigation }) => {
         flex: 1,
       }}
     >
-      {/* <Switch
-        onValueChange={() => {
-          toggleTheme();
-        }}
-        style={{
-          position: 'absolute',
-          right: 16,
-          top: 16,
-        }}
-        value={isThemeDark}
-      /> */}
-      {/* <IconButton
-        icon="cog"
-        style={{
-          position: 'absolute',
-          left: 10,
-          top: 10,
-        }}
-        size={20}
-        onPress={() => navigation.navigate('Settings', { name: 'Settings' })}
-      /> */}
-      {/* <MaterialCommunityIcons
-        name="cog"
-        color={theme.colors.text}
-        size={24}
-        style={{
-          position: 'absolute',
-          left: 16,
-          top: 16,
-        }}
-      /> */}
       <Text
         style={{
           fontFamily: 'OpenSans-Bold',
