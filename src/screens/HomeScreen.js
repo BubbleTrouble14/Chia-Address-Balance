@@ -99,7 +99,7 @@ const WalletBalance = (props) => {
       >
         <Text
           style={{
-            fontFamily: 'OpenSans-Bold',
+        //    fontFamily: 'OpenSans-Bold',
             fontSize: 36,
             color: theme.colors.text,
           }}
@@ -109,7 +109,7 @@ const WalletBalance = (props) => {
         <View style={{ flexDirection: 'row', marginTop: 16 }}>
           <Text
             style={{
-              fontFamily: 'OpenSans-Regular',
+           //   fontFamily: 'OpenSans-Regular',
               fontSize: 19,
               marginEnd: 8,
               textAlignVertical: 'center',
@@ -120,7 +120,7 @@ const WalletBalance = (props) => {
           </Text>
           <Text
             style={{
-              fontFamily: 'OpenSans-Regular',
+         //     fontFamily: 'OpenSans-Regular',
               textAlignVertical: 'center',
               fontSize: 20,
               color: theme.colors.text,
@@ -191,7 +191,7 @@ const HomeScreen = () => {
     >
       <Text
         style={{
-          fontFamily: 'OpenSans-Bold',
+        //  fontFamily: 'OpenSans-Bold',
           color: theme.colors.text,
           fontSize: 40,
           textAlign: 'center',
