@@ -12,6 +12,7 @@ target 'ChiaWallet' do
     :hermes_enabled => false
   )
 
+
   target 'ChiaWalletTests' do
     inherit! :complete
     # Pods for testing
