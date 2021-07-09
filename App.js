@@ -52,10 +52,10 @@ const LightTheme = {
   roundness: 2,
   colors: {
     ...CombinedDefaultTheme.colors,
-    accent: '#ff9800',
-    primary: '#35AB52',
-    // primary: '#273038',
-    // accent: '#35AB52',
+    accent: '#c57e49',
+    primary: '#329f4d',
+    background: '#f6f6f6',
+    leaves: 'rgba(41, 50, 57, 0.05)',
   },
 };
 
@@ -64,15 +64,12 @@ const DarkTheme = {
   roundness: 2,
   colors: {
     ...CombinedDarkTheme.colors,
-    // background: '#303030',
-    // background: '#273038',
-    background: '#182d40',
-    surface: '#101e2b',
-    accent: '#ff9800',
-    primary: '#35AB52',
-
-    // primary: '#273038',
-    // accent: '#35AB52',
+    background: '#293239',
+    text: '#ffffffff',
+    surface: '#20272c',
+    accent: '#c57e49',
+    primary: '#329f4d',
+    leaves: 'rgba(245, 245, 245, 0.07)',
   },
 };
 

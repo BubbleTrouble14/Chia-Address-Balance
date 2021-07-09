@@ -3,9 +3,10 @@ import AddressContext from '../contexts/AddressContext';
 
 import LogoIcon from '../assets/svgs/LogoIcon';
 import { useTheme, Appbar, TouchableRipple, Switch, Text, IconButton } from 'react-native-paper';
-import { SafeAreaView, StyleSheet, View, Platform } from 'react-native';
+import { SafeAreaView, StyleSheet, View, Platform, Image } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import Pattern from '../assets/svgs/Pattern';
 
 import {
   Colors,
@@ -44,11 +45,46 @@ const getPrice = (chiaCoins, currentPrice, currency, exchange) => {
   }
 };
 
+const CuteImage = ({ isThemeDark, chiaCoins }) => {
+  if (isThemeDark) {
+    if (chiaCoins > 0.001) {
+      return (
+        <Image
+          style={{ height: 300, width: 200 }}
+          source={require('../assets/pngs/girl_happy.png')}
+        ></Image>
+      );
+    } else {
+      return (
+        <Image
+          style={{ height: 300, width: 200 }}
+          source={require('../assets/pngs/girl_sad.png')}
+        ></Image>
+      );
+    }
+  } else if (chiaCoins > 0.001) {
+    return (
+      <Image
+        style={{ height: 300, width: 200 }}
+        source={require('../assets/pngs/boy_happy.png')}
+      ></Image>
+    );
+  } else {
+    return (
+      <Image
+        style={{ height: 300, width: 200 }}
+        source={require('../assets/pngs/boy_sad.png')}
+      ></Image>
+    );
+  }
+};
+
 const WalletBalance = (props) => {
   const { state, setState } = props;
   const theme = useTheme();
   const { addresses } = useContext(AddressContext);
   const { currency, exchange } = useContext(CurrencyContext);
+  const { isThemeDark } = useContext(ThemeContext);
   const [chiaCoins, setChiaCoins] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
 
@@ -77,7 +113,7 @@ const WalletBalance = (props) => {
 
   useEffect(() => {
     if (addresses.length > 0) {
-      setChiaCoins(0);
+      // setChiaCoins(0);
       const calls = [];
       addresses.forEach((wallet) => {
         calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
@@ -93,20 +129,22 @@ const WalletBalance = (props) => {
     return (
       <View
         style={{
-          marginTop: 32,
+          marginTop: 16,
           alignItems: 'center',
         }}
       >
+        <CuteImage isThemeDark={isThemeDark} chiaCoins={chiaCoins} />
         <Text
           style={{
             fontFamily: 'Heebo-Extrabold',
             fontSize: 36,
             color: theme.colors.text,
+            marginTop: 16,
           }}
         >
           {chiaCoins ? (chiaCoins / Math.pow(10, 12)).toFixed(2) + ' XCH' : 0 + ' XCH'}
         </Text>
-        <View style={{ flexDirection: 'row', marginTop: 16 }}>
+        <View style={{ flexDirection: 'row', marginTop: 0 }}>
           <Text
             style={{
               fontFamily: 'Heebo-Regular',
@@ -189,6 +227,9 @@ const HomeScreen = () => {
         flex: 1,
       }}
     >
+      <View style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 60 }}>
+        <Pattern color={theme.colors.leaves} />
+      </View>
       <Text
         style={{
           fontFamily: 'Heebo-Extrabold',
@@ -199,15 +240,28 @@ const HomeScreen = () => {
           marginStart: 16,
         }}
       >
-        Chia Wallet Balance
+        Chia Wallet
       </Text>
-      <LogoIcon
+      <Text
+        style={{
+          fontFamily: 'Heebo-Regular',
+          color: theme.colors.text,
+          fontSize: 30,
+          color: theme.colors.primary,
+          textAlign: 'center',
+          marginEnd: 16,
+          marginStart: 16,
+        }}
+      >
+        Balance
+      </Text>
+      {/* <LogoIcon
         color={theme.colors.primary}
         style={{
           width: 256,
           height: 256,
         }}
-      />
+      /> */}
       <WalletBalance state={state} setState={(state) => setState(state)} />
     </SafeAreaView>
   );

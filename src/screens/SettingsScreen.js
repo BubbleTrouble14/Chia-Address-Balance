@@ -41,12 +41,17 @@ const Settings = () => {
         style={{
           marginLeft: 12,
           marginEnd: 12,
-          backgroundColor: theme.colors.surface,
+          // backgroundColor: theme.colors.surface,
           borderRadius: 10,
         }}
         onPress={() => navigation.navigate('CurrencySelection')}
       >
-        <Card.Title title="Currency" subtitle="Set preferred currency." right={LeftContent} />
+        <Card.Title
+          style={{ backgroundColor: theme.colors.surface }}
+          title="Currency"
+          subtitle="Set preferred currency."
+          right={LeftContent}
+        />
       </Card>
     </SafeAreaView>
   );
