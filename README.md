@@ -5,6 +5,10 @@ A React Native application which works both on Android and Apple, to show ones C
 It's still very much in beta, still requires more testing.
 I do plan to add more features. But nothing which needs any private data.
 
+Google Play Store:
+
+https://play.google.com/store/apps/details?id=com.chiawallet
+
 ## Screenshots
 
 <p>
