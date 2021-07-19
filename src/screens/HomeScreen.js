@@ -3,23 +3,24 @@ import AddressContext from '../contexts/AddressContext';
 
 import LogoIcon from '../assets/svgs/LogoIcon';
 import { useTheme, Appbar, TouchableRipple, Switch, Text, IconButton } from 'react-native-paper';
-import { SafeAreaView, StyleSheet, View, Platform, Image } from 'react-native';
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Platform,
+  Image,
+  ScrollView,
+  RefreshControl,
+} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import getSymbolFromCurrency from 'currency-symbol-map';
 import Pattern from '../assets/svgs/Pattern';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-import { getBalance, getCurrentPrice } from '../Api';
+import { getBalance, getCurrentPrice, getExchangeRates } from '../Api';
 import { getObject, saveObject } from './../LocalStorage';
 import ThemeContext from '../contexts/ThemeContext';
 import CurrencyContext from '../contexts/CurrencyContext';
+import { addDataToExchangeO } from '../Utils';
 
 const formatPrice = (price, currency) => {
   const currencyOptions = new Intl.NumberFormat('en-US', {
@@ -80,45 +81,109 @@ const CuteImage = ({ isThemeDark, chiaCoins }) => {
 };
 
 const WalletBalance = (props) => {
-  const { state, setState } = props;
+  const { state, setState, addresses, refreshing, setRefreshing } = props;
   const theme = useTheme();
-  const { addresses } = useContext(AddressContext);
-  const { currency, exchange } = useContext(CurrencyContext);
+  const { currency, exchange, updateExchange } = useContext(CurrencyContext);
   const { isThemeDark } = useContext(ThemeContext);
   const [chiaCoins, setChiaCoins] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
 
-  const fetchBalanceForAddresses = (currentPrice, wallets) => {
+  const fetchBalanceForAddresses = async (currentPriceCall, wallets) => {
     const promises = wallets.map((data) => data.promise);
-    currentPrice
-      .then((currentPrice) => {
-        if (currentPrice) {
-          setCurrentPrice(currentPrice.price);
-          return Promise.all(promises)
-            .then((wallet) => {
-              wallet.forEach((wallet, index) => {
-                setChiaCoins((prevCoins) => prevCoins + wallet.netBalance);
-              });
-              setState('Success');
-            })
-            .catch((error) => {
-              console.error(error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+
+    const exchangeRate = await getExchangeRates();
+    const currentPrice = await currentPriceCall;
+    const walletBalances = await Promise.all(promises);
+    return { exchangeRate, currentPrice, walletBalances };
+    // return currentPrice
+    //   .then((currentPrice) => {
+    //     if (currentPrice) {
+    //       setCurrentPrice(currentPrice.price);
+    //       let coins = 0;
+    //       return Promise.all(promises)
+    //         .then((wallet) => {
+    //           wallet.forEach((wallet, index) => {
+    //             return wallet.netBalance;
+    //             // coins = coins + wallet.netBalance;
+    //             // setChiaCoins((prevCoins) => prevCoins + wallet.netBalance);
+    //           });
+    //           setState('Success');
+    //           console.log('Updated coin count');
+    //         })
+    //         .catch((error) => {
+    //           console.error(error);
+    //         });
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
+  };
+
+  const addDataToExchange = (data) => {
+    const obj = {
+      USD: {
+        value: 1,
+        icon: '🇪🇺',
+        title: 'United States Dollar',
+      },
+    };
+    Object.entries(data['exchange_rates']).forEach((entry) => {
+      const [key, value] = entry;
+      obj[key] = addDataToExchangeO([key, value]);
+    });
+    return obj;
+  };
+
+  const totalChiaCount = (walletBalances) => {
+    let val = 0;
+    walletBalances.forEach((item) => {
+      val = val + item.netBalance;
+    });
+    return val;
   };
 
   useEffect(() => {
-    if (addresses.length > 0) {
-      // setChiaCoins(0);
+    if (refreshing) {
       const calls = [];
       addresses.forEach((wallet) => {
         calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
       });
-      fetchBalanceForAddresses(getCurrentPrice(), calls);
+      fetchBalanceForAddresses(getCurrentPrice(), calls)
+        .then((data) => {
+          updateExchange(addDataToExchange(data.exchangeRate));
+          setCurrentPrice(data.currentPrice.price);
+          setChiaCoins(totalChiaCount(data.walletBalances));
+          setRefreshing(false);
+          setState('Success');
+          console.log('Fetched Data');
+        })
+        .catch((err) => {
+          console.log(err);
+          setRefreshing(false);
+          setState('Error');
+        });
+    }
+  }, [refreshing]);
+
+  useEffect(() => {
+    if (addresses.length > 0) {
+      const calls = [];
+      addresses.forEach((wallet) => {
+        calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
+      });
+      fetchBalanceForAddresses(getCurrentPrice(), calls)
+        .then((data) => {
+          updateExchange(addDataToExchange(data.exchangeRate));
+          setCurrentPrice(data.currentPrice.price);
+          setChiaCoins(totalChiaCount(data.walletBalances));
+          console.log('Fetched Data');
+          setState('Success');
+        })
+        .catch((err) => {
+          console.log(err);
+          setState('Error');
+        });
     } else {
       setState('No Addresses');
     }
@@ -217,52 +282,70 @@ const WalletBalance = (props) => {
 const HomeScreen = () => {
   const theme = useTheme();
   const [state, setState] = useState('Loading');
+  const { addresses } = useContext(AddressContext);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    if (addresses.length > 0) {
+      setRefreshing(true);
+    }
+  }, []);
 
   return (
     <SafeAreaView
       style={{
-        paddingTop: 30,
-        backgroundColor: theme.colors.background,
-        alignItems: 'center',
+        // paddingTop: 30,
+        // backgroundColor: theme.colors.background,
+        // alignItems: 'center',
         flex: 1,
       }}
     >
-      <View style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 60 }}>
-        <Pattern color={theme.colors.leaves} />
-      </View>
-      <Text
-        style={{
-          fontFamily: 'Heebo-Extrabold',
-          color: theme.colors.text,
-          fontSize: 40,
-          textAlign: 'center',
-          marginEnd: 16,
-          marginStart: 16,
+      <ScrollView
+        contentContainerStyle={{
+          flex: 1,
+          paddingTop: 30,
+          backgroundColor: theme.colors.background,
+          alignItems: 'center',
+          // justifyContent: 'center',
         }}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
-        Chia Wallet
-      </Text>
-      <Text
-        style={{
-          fontFamily: 'Heebo-Regular',
-          color: theme.colors.text,
-          fontSize: 30,
-          color: theme.colors.primary,
-          textAlign: 'center',
-          marginEnd: 16,
-          marginStart: 16,
-        }}
-      >
-        Balance
-      </Text>
-      {/* <LogoIcon
-        color={theme.colors.primary}
-        style={{
-          width: 256,
-          height: 256,
-        }}
-      /> */}
-      <WalletBalance state={state} setState={(state) => setState(state)} />
+        <View style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 60 }}>
+          <Pattern color={theme.colors.leaves} />
+        </View>
+        <Text
+          style={{
+            fontFamily: 'Heebo-Extrabold',
+            color: theme.colors.text,
+            fontSize: 40,
+            textAlign: 'center',
+            marginEnd: 16,
+            marginStart: 16,
+          }}
+        >
+          Chia Address
+        </Text>
+        <Text
+          style={{
+            fontFamily: 'Heebo-Regular',
+            color: theme.colors.text,
+            fontSize: 30,
+            color: theme.colors.primary,
+            textAlign: 'center',
+            marginEnd: 16,
+            marginStart: 16,
+          }}
+        >
+          Balance
+        </Text>
+        <WalletBalance
+          state={state}
+          addresses={addresses}
+          refreshing={refreshing}
+          setRefreshing={(refreshing) => setRefreshing(refreshing)}
+          setState={(state) => setState(state)}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

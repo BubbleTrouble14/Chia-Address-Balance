@@ -47,7 +47,7 @@ export const getBalance = (address) => {
       return json;
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 };
 
@@ -58,7 +58,7 @@ export const getCurrentPrice = () => {
       return json;
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 };
 
@@ -69,6 +69,6 @@ export const getExchangeRates = () => {
       return json;
     })
     .catch((error) => {
-      console.error(error);
+      console.log(error);
     });
 };

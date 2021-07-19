@@ -36,7 +36,6 @@ import {
   Provider as PaperProvider,
 } from 'react-native-paper';
 import merge from 'deepmerge';
-import { getExchangeRates } from './src/Api';
 import { CurrencyContextProvider } from './src/contexts/CurrencyContext';
 import CurrencySelection from './src/screens/CurrencySelectionScreen';
 import { addDataToExchangeO } from './src/Utils';
@@ -77,12 +76,12 @@ export const fetchInitData = () => {
   const promises = [
     getObject('addresses'),
     getObject('currency'),
-    getExchangeRates(),
+    //   getExchangeRates(),
     getObject('isThemeDark'),
   ];
 
-  return Promise.all(promises).then(([addresses, currency, exchange, isThemeDark]) => {
-    return { addresses, currency, exchange, isThemeDark };
+  return Promise.all(promises).then(([addresses, currency, isThemeDark]) => {
+    return { addresses, currency, isThemeDark };
   });
 };
 
@@ -113,9 +112,9 @@ if (Platform.OS === 'android') {
 const App = () => {
   const [addresses, setAddress] = useState([]);
   const [currency, setCurrency] = useState('USD');
-  const [exchange, setExchange] = useState();
   const [loading, setLoading] = useState(true);
   const [isThemeDark, setIsThemeDark] = useState(false);
+  const [exchange, setExchange] = useState();
 
   const addAddress = (newAddress) => {
     saveObject([...addresses, newAddress], 'addresses');
@@ -135,8 +134,12 @@ const App = () => {
     setCurrency(currency);
   };
 
+  const updateExchange = (exchange) => {
+    setExchange(exchange);
+  };
+
   const addressValue = { addresses, addAddress, removeAddress };
-  const currencyValue = { currency, updateCurrency, exchange, setExchange };
+  const currencyValue = { currency, updateCurrency, exchange, updateExchange };
 
   useEffect(() => {
     fetchInitData()
@@ -147,9 +150,9 @@ const App = () => {
         if (data.currency) {
           setCurrency(data.currency);
         }
-        if (data.exchange) {
-          setExchange(addDataToExchange(data.exchange));
-        }
+        // if (data.exchange) {
+        //   setExchange(addDataToExchange(data.exchange));
+        // }
         if (data.isThemeDark) {
           setIsThemeDark(data.isThemeDark);
         }
