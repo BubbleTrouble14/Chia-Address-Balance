@@ -1,9 +1,13 @@
-# Chia-Wallet-Balance
+# Chia-Address-Balance
 
 A React Native application which works both on Android and Apple, to show ones Chia wallet balance. It requires no private data at all. It just uses the data from https://www.chiaexplorer.com/ which is public to everyone.
 
 It's still very much in beta, still requires more testing.
 I do plan to add more features. But nothing which needs any private data.
+
+Google Play Store:
+
+https://play.google.com/store/apps/details?id=com.chiawallet
 
 ## Screenshots
 
