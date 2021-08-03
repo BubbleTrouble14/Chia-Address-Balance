@@ -41,7 +41,7 @@ import React, { useEffect, useState } from 'react';
 // };
 
 export const getBalance = (address) => {
-  return fetch('https://api2.chiaexplorer.com/balance/' + address)
+  return fetch('https://api3.chiaexplorer.com/balance/' + address)
     .then((response) => response.json())
     .then((json) => {
       return json;
@@ -52,7 +52,7 @@ export const getBalance = (address) => {
 };
 
 export const getCurrentPrice = () => {
-  return fetch('https://api2.chiaexplorer.com/currentPrice')
+  return fetch('https://api3.chiaexplorer.com/currentPrice')
     .then((response) => response.json())
     .then((json) => {
       return json;
