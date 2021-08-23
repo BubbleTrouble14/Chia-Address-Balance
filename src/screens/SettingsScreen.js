@@ -19,15 +19,17 @@ import AddressContext from '../contexts/AddressContext';
 import { saveObject } from '../LocalStorage';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import CurrencySelection from './CurrencySelectionScreen';
+import CurrencySelection, { getCurrencyFromKey } from './CurrencySelectionScreen';
 import CurrencyContext from '../contexts/CurrencyContext';
 
 const Settings = () => {
   const theme = useTheme();
   const navigation = useNavigation();
-  const { currency } = useContext(CurrencyContext);
+  const { currencyKey } = useContext(CurrencyContext);
 
-  const LeftContent = (props) => <Text style={{ marginEnd: 16 }}>{currency}</Text>;
+  const LeftContent = (props) => (
+    <Text style={{ marginEnd: 16 }}>{getCurrencyFromKey(currencyKey)}</Text>
+  );
 
   return (
     <SafeAreaView

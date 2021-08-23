@@ -16,11 +16,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import getSymbolFromCurrency from 'currency-symbol-map';
 import Pattern from '../assets/svgs/Pattern';
 
-import { getBalance, getCurrentPrice, getExchangeRates } from '../Api';
-import { getObject, saveObject } from './../LocalStorage';
+import { getBalance, getChiaPriceInFiat } from '../Api';
 import ThemeContext from '../contexts/ThemeContext';
 import CurrencyContext from '../contexts/CurrencyContext';
-import { addDataToExchangeO } from '../Utils';
+import { getCurrencyFromKey } from './CurrencySelectionScreen';
 
 const formatPrice = (price, currency) => {
   const currencyOptions = new Intl.NumberFormat('en-US', {
@@ -35,14 +34,14 @@ const formatPrice = (price, currency) => {
   return value;
 };
 
-const getPrice = (chiaCoins, currentPrice, currency, exchange) => {
+const getPrice = (chiaCoins, chiaPriceInFiat, currencyKey) => {
   if (chiaCoins) {
     return formatPrice(
-      (chiaCoins / Math.pow(10, 12)) * currentPrice * exchange[currency].value,
-      currency
+      (chiaCoins / Math.pow(10, 12)) * chiaPriceInFiat,
+      getCurrencyFromKey(currencyKey)
     );
   } else {
-    return formatPrice(0, currency);
+    return formatPrice(0, getCurrencyFromKey(currencyKey));
   }
 };
 
@@ -83,64 +82,38 @@ const CuteImage = ({ isThemeDark, chiaCoins }) => {
 const WalletBalance = (props) => {
   const { state, setState, addresses, refreshing, setRefreshing } = props;
   const theme = useTheme();
-  const { currency, exchange, updateExchange } = useContext(CurrencyContext);
+  const { currencyKey } = useContext(CurrencyContext);
   const { isThemeDark } = useContext(ThemeContext);
   const [chiaCoins, setChiaCoins] = useState(0);
-  const [currentPrice, setCurrentPrice] = useState(0);
+  const [chiaPriceInFiat, setChiaPriceInFiat] = useState(0);
 
-  const fetchBalanceForAddresses = async (currentPriceCall, wallets) => {
+  const fetchBalanceForAddresses = async (currencyKey, wallets) => {
     const promises = wallets.map((data) => data.promise);
 
-    const exchangeRate = await getExchangeRates();
-    const currentPrice = await currentPriceCall;
+    const chiaPriceInFiat = await getChiaPriceInFiat(getCurrencyFromKey(currencyKey));
     const walletBalances = await Promise.all(promises);
-    return { exchangeRate, currentPrice, walletBalances };
-    // return currentPrice
-    //   .then((currentPrice) => {
-    //     if (currentPrice) {
-    //       setCurrentPrice(currentPrice.price);
-    //       let coins = 0;
-    //       return Promise.all(promises)
-    //         .then((wallet) => {
-    //           wallet.forEach((wallet, index) => {
-    //             return wallet.netBalance;
-    //             // coins = coins + wallet.netBalance;
-    //             // setChiaCoins((prevCoins) => prevCoins + wallet.netBalance);
-    //           });
-    //           setState('Success');
-    //           console.log('Updated coin count');
-    //         })
-    //         .catch((error) => {
-    //           console.error(error);
-    //         });
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-  };
-
-  const addDataToExchange = (data) => {
-    const obj = {
-      USD: {
-        value: 1,
-        icon: '🇪🇺',
-        title: 'United States Dollar',
-      },
-    };
-    Object.entries(data['exchange_rates']).forEach((entry) => {
-      const [key, value] = entry;
-      obj[key] = addDataToExchangeO([key, value]);
-    });
-    return obj;
+    return { chiaPriceInFiat, walletBalances };
   };
 
   const totalChiaCount = (walletBalances) => {
     let val = 0;
     walletBalances.forEach((item) => {
-      val = val + item.netBalance;
+      val = val + item.mojo;
     });
     return val;
+  };
+
+  const setStates = (data) => {
+    setChiaPriceInFiat(
+      data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`]
+    );
+    setChiaCoins(totalChiaCount(data.walletBalances));
+    console.log(
+      'Fecthed data: ',
+      data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`],
+      data.walletBalances
+    );
+    setState('Success');
   };
 
   useEffect(() => {
@@ -149,14 +122,10 @@ const WalletBalance = (props) => {
       addresses.forEach((wallet) => {
         calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
       });
-      fetchBalanceForAddresses(getCurrentPrice(), calls)
+      fetchBalanceForAddresses(currencyKey, calls)
         .then((data) => {
-          updateExchange(addDataToExchange(data.exchangeRate));
-          setCurrentPrice(data.currentPrice.price);
-          setChiaCoins(totalChiaCount(data.walletBalances));
           setRefreshing(false);
-          setState('Success');
-          console.log('Fetched Data');
+          setStates(data);
         })
         .catch((err) => {
           console.log(err);
@@ -172,13 +141,9 @@ const WalletBalance = (props) => {
       addresses.forEach((wallet) => {
         calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
       });
-      fetchBalanceForAddresses(getCurrentPrice(), calls)
+      fetchBalanceForAddresses(currencyKey, calls)
         .then((data) => {
-          updateExchange(addDataToExchange(data.exchangeRate));
-          setCurrentPrice(data.currentPrice.price);
-          setChiaCoins(totalChiaCount(data.walletBalances));
-          console.log('Fetched Data');
-          setState('Success');
+          setStates(data);
         })
         .catch((err) => {
           console.log(err);
@@ -187,7 +152,7 @@ const WalletBalance = (props) => {
     } else {
       setState('No Addresses');
     }
-  }, [addresses]);
+  }, [addresses, currencyKey]);
 
   if (state === 'Success') {
     // saveObject(data, 'data');
@@ -219,7 +184,7 @@ const WalletBalance = (props) => {
               color: theme.colors.text,
             }}
           >
-            {getSymbolFromCurrency(currency)}
+            {getSymbolFromCurrency(getCurrencyFromKey(currencyKey))}
           </Text>
           <Text
             style={{
@@ -229,7 +194,7 @@ const WalletBalance = (props) => {
               color: theme.colors.text,
             }}
           >
-            {getPrice(chiaCoins, currentPrice, currency, exchange)}
+            {getPrice(chiaCoins, chiaPriceInFiat, currencyKey)}
           </Text>
         </View>
       </View>

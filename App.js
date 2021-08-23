@@ -38,7 +38,6 @@ import {
 import merge from 'deepmerge';
 import { CurrencyContextProvider } from './src/contexts/CurrencyContext';
 import CurrencySelection from './src/screens/CurrencySelectionScreen';
-import { addDataToExchangeO } from './src/Utils';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
@@ -73,31 +72,11 @@ const DarkTheme = {
 };
 
 export const fetchInitData = () => {
-  const promises = [
-    getObject('addresses'),
-    getObject('currency'),
-    //   getExchangeRates(),
-    getObject('isThemeDark'),
-  ];
+  const promises = [getObject('addresses'), getObject('currency'), getObject('isThemeDark')];
 
   return Promise.all(promises).then(([addresses, currency, isThemeDark]) => {
     return { addresses, currency, isThemeDark };
   });
-};
-
-const addDataToExchange = (data) => {
-  const obj = {
-    USD: {
-      value: 1,
-      icon: '🇪🇺',
-      title: 'United States Dollar',
-    },
-  };
-  Object.entries(data['exchange_rates']).forEach((entry) => {
-    const [key, value] = entry;
-    obj[key] = addDataToExchangeO([key, value]);
-  });
-  return obj;
 };
 
 if (Platform.OS === 'android') {
@@ -111,10 +90,9 @@ if (Platform.OS === 'android') {
 
 const App = () => {
   const [addresses, setAddress] = useState([]);
-  const [currency, setCurrency] = useState('USD');
+  const [currencyKey, setCurrency] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isThemeDark, setIsThemeDark] = useState(false);
-  const [exchange, setExchange] = useState();
 
   const addAddress = (newAddress) => {
     saveObject([...addresses, newAddress], 'addresses');
@@ -129,17 +107,13 @@ const App = () => {
     setAddress((prevState) => prevState.filter((item) => item.address !== selectedAddress));
   };
 
-  const updateCurrency = (currency) => {
-    saveObject(currency, 'currency');
-    setCurrency(currency);
-  };
-
-  const updateExchange = (exchange) => {
-    setExchange(exchange);
+  const updateCurrency = (currencyKey) => {
+    saveObject(currencyKey, 'currencyKey');
+    setCurrency(currencyKey);
   };
 
   const addressValue = { addresses, addAddress, removeAddress };
-  const currencyValue = { currency, updateCurrency, exchange, updateExchange };
+  const currencyValue = { currencyKey, updateCurrency };
 
   useEffect(() => {
     fetchInitData()
@@ -147,12 +121,9 @@ const App = () => {
         if (data.addresses) {
           setAddress(data.addresses);
         }
-        if (data.currency) {
-          setCurrency(data.currency);
+        if (data.currencyKey) {
+          setCurrency(data.currencyKey);
         }
-        // if (data.exchange) {
-        //   setExchange(addDataToExchange(data.exchange));
-        // }
         if (data.isThemeDark) {
           setIsThemeDark(data.isThemeDark);
         }

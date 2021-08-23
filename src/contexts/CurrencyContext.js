@@ -1,10 +1,8 @@
 import React, { createContext } from 'react';
 
 const CurrencyContext = createContext({
-  setCurrency: () => {},
-  currency: '',
-  setExchange: () => {},
-  exchange: {},
+  setCurrencyKey: () => {},
+  currencyKey: 0,
 });
 
 export const CurrencyContextProvider = CurrencyContext.Provider;
