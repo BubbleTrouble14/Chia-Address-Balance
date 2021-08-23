@@ -9,9 +9,11 @@ Google Play Store:
 
 https://play.google.com/store/apps/details?id=com.chiawallet
 
-Powered By:
+
+Powered by XCHscan.com APIs:
 
 https://xchscan.com/rest-api
+
 
 ## Screenshots
 
