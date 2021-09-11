@@ -36,8 +36,13 @@ import {
   Provider as PaperProvider,
 } from 'react-native-paper';
 import merge from 'deepmerge';
+import SwitchWithIcons from 'react-native-switch-with-icons';
+import SunIcon from './src/assets/pngs/white_sun.png';
+import MoonIcon from './src/assets/pngs/moon.png';
+
 import { CurrencyContextProvider } from './src/contexts/CurrencyContext';
 import CurrencySelection from './src/screens/CurrencySelectionScreen';
+import { color } from 'react-native-reanimated';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
@@ -72,10 +77,10 @@ const DarkTheme = {
 };
 
 export const fetchInitData = () => {
-  const promises = [getObject('addresses'), getObject('currency'), getObject('isThemeDark')];
+  const promises = [getObject('addresses'), getObject('currencyKey'), getObject('isThemeDark')];
 
-  return Promise.all(promises).then(([addresses, currency, isThemeDark]) => {
-    return { addresses, currency, isThemeDark };
+  return Promise.all(promises).then(([addresses, currencyKey, isThemeDark]) => {
+    return { addresses, currencyKey, isThemeDark };
   });
 };
 
@@ -99,6 +104,17 @@ const App = () => {
     setAddress((prevState) => [...prevState, newAddress]);
   };
 
+  const updateAddressTitle = (address, title) => {
+    const newAddresses = [...addresses];
+    newAddresses.forEach((item) => {
+      if (item.address === address) {
+        item.title = title;
+      }
+    });
+    saveObject(newAddresses, 'addresses');
+    setAddress(newAddresses);
+  };
+
   const removeAddress = (selectedAddress) => {
     saveObject(
       addresses.filter((item) => item.address !== selectedAddress),
@@ -112,7 +128,7 @@ const App = () => {
     setCurrency(currencyKey);
   };
 
-  const addressValue = { addresses, addAddress, removeAddress };
+  const addressValue = { addresses, addAddress, updateAddressTitle, removeAddress };
   const currencyValue = { currencyKey, updateCurrency };
 
   useEffect(() => {
@@ -182,13 +198,41 @@ const App = () => {
                         ),
                         headerTitle: '',
                         headerRight: () => (
-                          <Switch
-                            onValueChange={() => {
-                              toggleTheme();
+                          <View
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              marginEnd: 10,
+                              alignItems: 'center',
                             }}
-                            style={{ marginEnd: 16 }}
-                            value={isThemeDark}
-                          />
+                          >
+                            {/* <Switch
+                              onValueChange={() => {
+                                toggleTheme();
+                              }}
+                              style={{ marginEnd: 16 }}
+                              value={isThemeDark}
+                            /> */}
+                            <SwitchWithIcons
+                              onValueChange={(value) => toggleTheme()}
+                              value={isThemeDark}
+                              icon={{ true: MoonIcon, false: SunIcon }}
+                              trackColor={{
+                                true: theme.colors.leaves,
+                                false: theme.colors.leaves,
+                              }}
+                              thumbColor={{
+                                true: theme.colors.accent,
+                                false: theme.colors.accent,
+                              }}
+                              iconColor={{ true: '#fff', false: '#fff' }}
+                            />
+                            <IconButton
+                              icon="book"
+                              size={24}
+                              onPress={() => console.log('Pressed')}
+                            />
+                          </View>
                         ),
                       })}
                     />

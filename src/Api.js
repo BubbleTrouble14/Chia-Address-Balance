@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
+// Powered by XCHscan.com APIs
+// https://xchscan.com/rest-api
+
 const url = 'https://xchscan.com/api/';
 const url_price = 'https://api.coingecko.com/api/v3/simple/price?ids=chia&vs_currencies=';
 

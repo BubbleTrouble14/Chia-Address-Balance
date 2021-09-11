@@ -55,6 +55,18 @@ const Settings = () => {
           right={LeftContent}
         />
       </Card>
+      <Text
+        style={{
+          fontSize: 30,
+          textAlign: 'center',
+          position: 'absolute',
+          bottom: 60,
+          left: 0,
+          right: 0,
+        }}
+      >
+        Powered by XCHscan.com APIs
+      </Text>
     </SafeAreaView>
   );
 };

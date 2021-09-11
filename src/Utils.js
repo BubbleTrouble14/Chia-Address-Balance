@@ -1,7 +1,6 @@
 //import SvgAd from './svgComponents/Ad';
 export const addDataToExchangeO = ([key, value]) => {
   let obj;
-  //   console.log(key, value);
   if (key === 'EUR') {
     obj = {
       value,

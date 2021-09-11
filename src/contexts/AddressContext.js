@@ -3,6 +3,7 @@ import React, { createContext } from 'react';
 const AddressContext = createContext({
   addAddress: () => {},
   removeAddress: () => {},
+  updateAddressTitle: () => {},
   addresses: [],
 });
 

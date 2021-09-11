@@ -29,6 +29,7 @@
     "react-native-screens": "^3.4.0",
     "react-native-svg": "^12.1.1",
     "react-native-svg-transformer": "^0.14.3",
+    "react-native-switch-with-icons": "^2.0.1",
     "react-native-vector-icons": "^8.1.0",
     "recoil": "^0.3.1"
   },

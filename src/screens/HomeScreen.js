@@ -108,11 +108,11 @@ const WalletBalance = (props) => {
       data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`]
     );
     setChiaCoins(totalChiaCount(data.walletBalances));
-    console.log(
-      'Fecthed data: ',
-      data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`],
-      data.walletBalances
-    );
+    // console.log(
+    //   'Fecthed data: ',
+    //   data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`],
+    //   data.walletBalances
+    // );
     setState('Success');
   };
 
@@ -293,7 +293,7 @@ const HomeScreen = () => {
         <Text
           style={{
             fontFamily: 'Heebo-Regular',
-            color: theme.colors.text,
+            // color: theme.colors.text,
             fontSize: 30,
             color: theme.colors.primary,
             textAlign: 'center',

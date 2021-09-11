@@ -44,9 +44,6 @@ export const currencies = [
 ];
 
 export const getCurrencyFromKey = (key) => {
-  console.log(key);
-  // console.log(currencies.find((currency) => currency.key === key));
-  // console.log(Object.keys(currencies.find((currency) => currency.key === key))[1]);
   return Object.keys(currencies.find((currency) => currency.key === key))[1];
 };
 
@@ -60,7 +57,6 @@ const CurrencySelection = ({ navigation }) => {
       item={item}
       onPress={() => {
         navigation.goBack();
-        console.log(item);
         updateCurrency(item.key);
       }}
       backgroundColor={theme.colors.surface}
