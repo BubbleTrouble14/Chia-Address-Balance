@@ -9,6 +9,10 @@ Google Play Store:
 
 https://play.google.com/store/apps/details?id=com.chiawallet
 
+Discord Channel for help and ideas:
+
+https://discord.gg/EZfP4tgANM
+
 
 Powered by XCHscan.com APIs:
 
