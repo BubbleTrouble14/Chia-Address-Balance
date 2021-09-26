@@ -57,10 +57,10 @@ const Settings = () => {
       </Card>
       <Text
         style={{
-          fontSize: 30,
+          fontSize: 20,
           textAlign: 'center',
           position: 'absolute',
-          bottom: 60,
+          bottom: 40,
           left: 0,
           right: 0,
         }}

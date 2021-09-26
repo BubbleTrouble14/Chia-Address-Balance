@@ -232,6 +232,7 @@ const Address = () => {
                     const address = {
                       address: formattedInputText,
                       title: inputTitleText,
+                      checked: true,
                     };
                     addAddress(address);
                     setTextInput('');

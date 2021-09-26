@@ -108,6 +108,7 @@ const WalletBalance = (props) => {
       data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`]
     );
     setChiaCoins(totalChiaCount(data.walletBalances));
+    console.log(data);
     // console.log(
     //   'Fecthed data: ',
     //   data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`],
@@ -119,8 +120,10 @@ const WalletBalance = (props) => {
   useEffect(() => {
     if (refreshing) {
       const calls = [];
+      console.log(addresses);
       addresses.forEach((wallet) => {
-        calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
+        if (wallet.checked)
+          calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
       });
       fetchBalanceForAddresses(currencyKey, calls)
         .then((data) => {
@@ -139,7 +142,8 @@ const WalletBalance = (props) => {
     if (addresses.length > 0) {
       const calls = [];
       addresses.forEach((wallet) => {
-        calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
+        if (wallet.checked)
+          calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
       });
       fetchBalanceForAddresses(currencyKey, calls)
         .then((data) => {
