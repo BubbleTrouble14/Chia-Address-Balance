@@ -2,7 +2,9 @@ package com.chiawallet;
 
 import java.util.List;
 
-public class ChiaAddresses {
+public class ChiaAddress {
 
-    public List<String> addresses;
+    public String address;
+    public String title;
+    public boolean checked;
 }

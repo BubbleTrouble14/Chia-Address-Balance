@@ -1,21 +1,52 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/appWidgetBackgroundColor"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:layout_centerInParent="true"
+    android:orientation="vertical"
+    android:id="@+id/widgetLayout"
     android:padding="@dimen/widget_margin"
     android:theme="@style/ThemeOverlay.ChiaWallet.AppWidgetContainer">
 
     <TextView
-        android:id="@+id/appwidget_text"
+        android:id="@+id/textViewWidgetName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="?attr/appWidgetBackgroundColor"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="?attr/appWidgetTextColor"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
-</RelativeLayout>
+        android:layout_marginTop="2dp"
+        android:textColor="@android:color/white"
+        tools:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:text="Name"
+        android:textSize="16dp"
+        android:layout_gravity="center" />
+
+    <ImageView
+        android:id="@+id/displayImageWidget"
+        android:layout_width="60dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/boy_happy" />
+
+    <TextView
+        android:id="@+id/textViewChiaValueWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:textStyle="bold"
+        android:text="1 XCH"
+        android:textSize="16dp"
+        android:layout_gravity="center"
+        android:textColor="@color/green" />
+
+    <TextView
+        android:id="@+id/textViewFiatValueWidget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        tools:textColor="@android:color/black"
+        android:layout_marginTop="2dp"
+        android:textSize="14dp"
+        android:text="100 $"/>
+</LinearLayout>

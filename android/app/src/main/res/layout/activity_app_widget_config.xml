@@ -4,6 +4,169 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="16dp"
     tools:context=".AppWidgetConfig">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/displayImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewShowName"
+        app:srcCompat="@drawable/boy_happy" />
+
+    <TextView
+        android:id="@+id/textViewChiaValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="1 XCH"
+        android:textSize="24dp"
+        android:textColor="@color/green"
+        app:layout_constraintEnd_toEndOf="@+id/displayImage"
+        app:layout_constraintStart_toStartOf="@+id/displayImage"
+        app:layout_constraintTop_toBottomOf="@+id/displayImage" />
+
+    <TextView
+        android:id="@+id/textViewFiatValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16dp"
+        android:text="100 $"
+        app:layout_constraintEnd_toEndOf="@+id/textViewChiaValue"
+        app:layout_constraintStart_toStartOf="@+id/textViewChiaValue"
+        app:layout_constraintTop_toBottomOf="@+id/textViewChiaValue" />
+
+    <TextView
+        android:id="@+id/textViewIconIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="Select Display Icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFiatValue" />
+
+    <Spinner
+        android:id="@+id/spinnerIcon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/editbox_background"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewIconIndicator"
+        app:layout_constraintStart_toStartOf="@+id/textViewIconIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIconIndicator" />
+
+    <TextView
+        android:id="@+id/textViewAddressIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Selected Chia Addresses"
+        app:layout_constraintEnd_toEndOf="@+id/textViewIconIndicator"
+        app:layout_constraintStart_toStartOf="@+id/textViewIconIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerTextColor" />
+
+    <TextView
+        android:id="@+id/textViewAddress"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center|start"
+        android:hint="Select one or multiple chia addresses"
+        android:background="@android:drawable/editbox_background"
+        android:drawableEnd="@android:drawable/arrow_down_float"
+        android:padding="12dp"
+        android:drawablePadding="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewAddressIndicator"
+        app:layout_constraintStart_toStartOf="@+id/textViewAddressIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddressIndicator"
+        tools:ignore="RtlCompat" />
+
+    <TextView
+        android:id="@+id/textViewColorIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="32dp"
+        android:text="Select Text Color"
+        app:layout_constraintEnd_toEndOf="@+id/textViewIconIndicator"
+        app:layout_constraintStart_toStartOf="@+id/textViewIconIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerIcon" />
+
+    <Spinner
+        android:id="@+id/spinnerTextColor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewAddress"
+        app:layout_constraintStart_toStartOf="@+id/spinnerIcon"
+        app:layout_constraintTop_toBottomOf="@+id/textViewColorIndicator" />
+
+    <CheckBox
+        android:id="@+id/checkBoxShowName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:checked="true"
+        android:text="Show Assigned Name"
+        app:layout_constraintStart_toStartOf="@+id/textViewAddressIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/textViewAddress" />
+
+    <CheckBox
+        android:id="@+id/checkBoxChia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:checked="true"
+        android:text="Show Chia Value"
+        app:layout_constraintStart_toStartOf="@+id/textViewAddressIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxShowName" />
+
+    <CheckBox
+        android:id="@+id/checkBoxFiat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Show Fiat Value"
+        android:checked="true"
+        app:layout_constraintStart_toStartOf="@+id/textViewAddressIndicator"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxChia" />
+
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewShowName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

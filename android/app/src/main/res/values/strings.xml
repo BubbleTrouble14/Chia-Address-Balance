@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Chia Address Balance</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+    <string-array name="icon_array">
+        <item>Happy Guy</item>
+        <item>Sad Guy</item>
+        <item>Happy Girl</item>
+        <item>Sad Girl</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="color_array">
+        <item>Black</item>
+        <item>White</item>
+    </string-array>
 </resources>
