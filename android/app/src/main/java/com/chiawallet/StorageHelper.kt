@@ -21,7 +21,12 @@ class StorageHelper {
 
         fun getPublicChiaAddresses(context: Context): List<ChiaAddress> {
             val gson = Gson();
-            val data = runBlocking { readValue(context, listOf("addresses")) }[0].value
+            var data = "[]";
+            try{
+                data = runBlocking { readValue(context, listOf("addresses")) }[0].value.toString()
+            }catch (ex: Exception){
+
+            }
 
             val itemType = object : TypeToken<List<ChiaAddress>>() {}.type
 
@@ -35,7 +40,11 @@ class StorageHelper {
             runBlocking {
 //                val addressBalances = arrayListOf<Double>();
                 try {
-                    val currency =  readValue(context, listOf("currencyKey"))[0].value
+                    var currency = "0"
+                    try{
+                        currency = readValue(context, listOf("currencyKey"))[0].value ?: "0";
+                    }catch (ex: Exception){ }
+//                    val currency = readValue(context, listOf("currencyKey"))[0].value?: "0"
                     var xchVal = 0.0;
                     widgetData.addresses.forEach {
                         val fetchBalanceFromAddress = Request.Builder().url(URL.plus("account/balance?address=").plus(it.address)).build()
@@ -44,7 +53,7 @@ class StorageHelper {
                         xchVal += chiaBalance.xch;
                     }
                     widgetData.xchValue = xchVal;
-                    val fetchChiaPrice = Request.Builder().url(PRICE_URL.plus(currencyTypes[currency!!.toInt()])).build();
+                    val fetchChiaPrice = Request.Builder().url(PRICE_URL.plus(currencyTypes[currency.toInt()])).build();
                     val chiaPriceResponse = client.newCall(fetchChiaPrice).await()
                     val jsonObject = JSONObject(chiaPriceResponse.body()!!.string());
                     val innnerObject = jsonObject.getJSONObject("chia");

@@ -8,21 +8,39 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Linking, View, SafeAreaView, StatusBar, UIManager, Platform } from 'react-native';
+import {
+  Linking,
+  View,
+  SafeAreaView,
+  StatusBar,
+  UIManager,
+  Platform,
+  FlatList,
+  ScrollView,
+  Text,
+} from 'react-native';
 import HomeTabs from './src/screens/HomeTabsScreen';
 import Settings from './src/screens/SettingsScreen';
 import { ThemeContextProvider } from './src/contexts/ThemeContext';
 import { AddressContextProvider } from './src/contexts/AddressContext';
 import { useEffect } from 'react';
-import { ToastProvider } from 'react-native-fast-toast';
 import { getObject, saveObject } from './src/LocalStorage';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ToastProvider } from 'react-native-fast-toast';
 import {
   createStackNavigator,
   TransitionSpecs,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
-import { Switch, IconButton } from 'react-native-paper';
+import {
+  Switch,
+  IconButton,
+  Portal,
+  Dialog,
+  Paragraph,
+  Checkbox,
+  Button,
+} from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
 import {
@@ -43,12 +61,15 @@ import MoonIcon from './src/assets/pngs/moon.png';
 import { CurrencyContextProvider } from './src/contexts/CurrencyContext';
 import CurrencySelection from './src/screens/CurrencySelectionScreen';
 import { color } from 'react-native-reanimated';
+import { NativeModules } from 'react-native';
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
+
+export const SharedStorage = NativeModules.SharedStorage;
 
 const LightTheme = {
   ...CombinedDefaultTheme,
@@ -93,11 +114,47 @@ if (Platform.OS === 'android') {
   require('intl/locale-data/jsonp/en-IN'); // load the required locale details
 }
 
+const Item = ({ theme, title, address, checked, onChecked }) => (
+  <View
+    style={{
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1,
+      color: 'white',
+      margin: 16,
+      // backgroundColor: onPress ? '#FFFFFFFF' : theme.colors.surface,
+      // marginVertical: 8,
+      // marginHorizontal: 16,
+    }}
+  >
+    <Text style={{ fontSize: 20, color: theme.colors.text }}>{title}</Text>
+    <Text
+      style={{
+        color: theme.colors.primary,
+        marginLeft: 16,
+        flex: 1,
+        fontStyle: 'italic',
+      }}
+      textBreakStrategy="simple"
+      numberOfLines={1}
+    >
+      {address}
+    </Text>
+    <Checkbox
+      status={checked ? 'checked' : 'unchecked'}
+      onPress={() => onChecked(!checked)}
+      style={{ flex: 1 }}
+    ></Checkbox>
+  </View>
+);
+
 const App = () => {
   const [addresses, setAddress] = useState([]);
   const [currencyKey, setCurrency] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isThemeDark, setIsThemeDark] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
 
   const addAddress = (newAddress) => {
     saveObject([...addresses, newAddress], 'addresses');
@@ -109,6 +166,17 @@ const App = () => {
     newAddresses.forEach((item) => {
       if (item.address === address) {
         item.title = title;
+      }
+    });
+    saveObject(newAddresses, 'addresses');
+    setAddress(newAddresses);
+  };
+
+  const updateCheckStatus = (address, checked) => {
+    const newAddresses = [...addresses];
+    newAddresses.forEach((item) => {
+      if (item.address === address) {
+        item.checked = checked;
       }
     });
     saveObject(newAddresses, 'addresses');
@@ -164,6 +232,40 @@ const App = () => {
     }),
     [toggleTheme, isThemeDark]
   );
+
+  const renderItem = ({ item }) => (
+    <Item
+      title={item.title}
+      address={item.address}
+      theme={theme}
+      checked={item.hasOwnProperty('checked') ? item.checked : true}
+      onChecked={(checked) => {
+        updateCheckStatus(item.address, checked);
+      }}
+    />
+  );
+
+  const Content = () => {
+    if (addresses.length > 0) {
+      return (
+        <FlatList data={addresses} renderItem={renderItem} keyExtractor={(item) => item.address} />
+      );
+    } else {
+      return (
+        <Text
+          style={{
+            textAlign: 'center',
+            color: 'white',
+            fontFamily: 'Heebo-Regular',
+            color: theme.colors.text,
+            fontSize: 24,
+          }}
+        >
+          Add chia addresses here.
+        </Text>
+      );
+    }
+  };
 
   if (loading)
     return (
@@ -228,9 +330,15 @@ const App = () => {
                               iconColor={{ true: '#fff', false: '#fff' }}
                             />
                             <IconButton
-                              icon="book"
+                              icon="filter"
                               size={24}
-                              onPress={() => console.log('Pressed')}
+                              onPress={() => {
+                                if (addresses.length > 0) {
+                                  setShowDialog(true);
+                                } else {
+                                  // toast.show('No addresses to filter');
+                                }
+                              }}
                             />
                           </View>
                         ),
@@ -258,6 +366,23 @@ const App = () => {
                     />
                   </Stack.Navigator>
                 </NavigationContainer>
+                <Portal>
+                  <Dialog visible={showDialog} onDismiss={() => setShowDialog(false)}>
+                    <Dialog.Title>Address Filter</Dialog.Title>
+                    <Dialog.Content>
+                      <Content />
+                    </Dialog.Content>
+                    <Dialog.Actions>
+                      <Button
+                        onPress={() => {
+                          setShowDialog(false);
+                        }}
+                      >
+                        Close
+                      </Button>
+                    </Dialog.Actions>
+                  </Dialog>
+                </Portal>
               </PaperProvider>
             </SafeAreaProvider>
           </ToastProvider>
