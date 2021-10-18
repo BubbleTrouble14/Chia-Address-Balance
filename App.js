@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-return-assign */
+/* eslint-disable global-require */
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -6,62 +9,57 @@
  * @flow strict-local
  */
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo , useEffect } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {
-  Linking,
   View,
   SafeAreaView,
   StatusBar,
-  UIManager,
   Platform,
   FlatList,
-  ScrollView,
   Text,
-} from 'react-native';
-import HomeTabs from './src/screens/HomeTabsScreen';
-import Settings from './src/screens/SettingsScreen';
-import { ThemeContextProvider } from './src/contexts/ThemeContext';
-import { AddressContextProvider } from './src/contexts/AddressContext';
-import { useEffect } from 'react';
-import { getObject, saveObject } from './src/LocalStorage';
+ NativeModules } from 'react-native';
+
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { ToastProvider } from 'react-native-fast-toast';
+import Toast, { ToastProvider} from 'react-native-toast-notifications'
 import {
   createStackNavigator,
-  TransitionSpecs,
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import {
-  Switch,
   IconButton,
   Portal,
   Dialog,
-  Paragraph,
   Checkbox,
   Button,
-} from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
-
-import {
-  NavigationContainer,
-  DarkTheme as NavigationDarkTheme,
-  DefaultTheme as NavigationDefaultTheme,
-} from '@react-navigation/native';
-import {
   DarkTheme as PaperDarkTheme,
   DefaultTheme as PaperDefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
+import { 
+  NavigationContainer,
+  DarkTheme as NavigationDarkTheme,
+  DefaultTheme as NavigationDefaultTheme,
+} from '@react-navigation/native';
+
+
+
 import merge from 'deepmerge';
 import SwitchWithIcons from 'react-native-switch-with-icons';
+import BackgroundFetch from 'react-native-background-fetch';
 import SunIcon from './src/assets/pngs/white_sun.png';
 import MoonIcon from './src/assets/pngs/moon.png';
 
 import { CurrencyContextProvider } from './src/contexts/CurrencyContext';
 import CurrencySelection from './src/screens/CurrencySelectionScreen';
-import { color } from 'react-native-reanimated';
-import { NativeModules } from 'react-native';
+
+import { AddressContextProvider } from './src/contexts/AddressContext';
+import { ThemeContextProvider } from './src/contexts/ThemeContext';
+import Settings from './src/screens/SettingsScreen';
+import HomeTabs from './src/screens/HomeTabsScreen';
+import { getObject, saveObject } from './src/LocalStorage';
+import BackgroundTask from './src/components/BackgroundTask';
+
 
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
@@ -69,7 +67,7 @@ const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export const SharedStorage = NativeModules.SharedStorage;
+export const {SharedStorage} = NativeModules;
 
 const LightTheme = {
   ...CombinedDefaultTheme,
@@ -98,11 +96,9 @@ const DarkTheme = {
 };
 
 export const fetchInitData = () => {
-  const promises = [getObject('addresses'), getObject('currencyKey'), getObject('isThemeDark')];
+  const promises = [getObject('addresses'), getObject('currencyKey'), getObject('isThemeDark'), getObject('notification')];
 
-  return Promise.all(promises).then(([addresses, currencyKey, isThemeDark]) => {
-    return { addresses, currencyKey, isThemeDark };
-  });
+  return Promise.all(promises).then(([addresses, currencyKey, isThemeDark, notification]) => ({ addresses, currencyKey, isThemeDark, notification }));
 };
 
 if (Platform.OS === 'android') {
@@ -145,7 +141,7 @@ const Item = ({ theme, title, address, checked, onChecked }) => (
       status={checked ? 'checked' : 'unchecked'}
       onPress={() => onChecked(!checked)}
       style={{ flex: 1 }}
-    ></Checkbox>
+     />
   </View>
 );
 
@@ -155,6 +151,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [isThemeDark, setIsThemeDark] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
+  const [notification, setNotification] = useState(true);
 
   const addAddress = (newAddress) => {
     saveObject([...addresses, newAddress], 'addresses');
@@ -196,6 +193,20 @@ const App = () => {
     setCurrency(currencyKey);
   };
 
+  const saveNotification = async () => {
+    saveObject(!notification,
+      'notification'
+    );
+    setNotification(!notification)
+    if (!notification) {
+       await BackgroundFetch.start();
+       toast.show("Enabled Notifications");
+    } else {
+       await BackgroundFetch.stop();
+       toast.show("Disabled Notifications");
+    }
+  }
+
   const addressValue = { addresses, addAddress, updateAddressTitle, removeAddress };
   const currencyValue = { currencyKey, updateCurrency };
 
@@ -211,6 +222,10 @@ const App = () => {
         if (data.isThemeDark) {
           setIsThemeDark(data.isThemeDark);
         }
+        if(data.notification !== null)
+        {
+          setNotification(data.notification)
+        }
         setLoading(false);
       })
       .catch((ex) => {
@@ -218,7 +233,7 @@ const App = () => {
       });
   }, []);
 
-  let theme = isThemeDark ? DarkTheme : LightTheme;
+  const theme = isThemeDark ? DarkTheme : LightTheme;
 
   const toggleTheme = useCallback(() => {
     saveObject(!isThemeDark, 'isThemeDark');
@@ -238,7 +253,7 @@ const App = () => {
       title={item.title}
       address={item.address}
       theme={theme}
-      checked={item.hasOwnProperty('checked') ? item.checked : true}
+      checked={Object.prototype.hasOwnProperty.call(item, 'checked') ? item.checked : true}
       onChecked={(checked) => {
         updateCheckStatus(item.address, checked);
       }}
@@ -250,12 +265,11 @@ const App = () => {
       return (
         <FlatList data={addresses} renderItem={renderItem} keyExtractor={(item) => item.address} />
       );
-    } else {
+    } 
       return (
         <Text
           style={{
             textAlign: 'center',
-            color: 'white',
             fontFamily: 'Heebo-Regular',
             color: theme.colors.text,
             fontSize: 24,
@@ -264,7 +278,7 @@ const App = () => {
           Add chia addresses here.
         </Text>
       );
-    }
+    
   };
 
   if (loading)
@@ -282,6 +296,7 @@ const App = () => {
             <SafeAreaProvider style={{ backgroundColor: theme.colors.background }}>
               <PaperProvider theme={theme}>
                 <NavigationContainer theme={theme}>
+                  <BackgroundTask notification={notification}>
                   <StatusBar backgroundColor={theme.colors.background} barStyle="light-content" />
                   <Stack.Navigator mode="modal">
                     <Stack.Screen
@@ -315,6 +330,13 @@ const App = () => {
                               style={{ marginEnd: 16 }}
                               value={isThemeDark}
                             /> */}
+                            <IconButton
+                              icon={ notification ? "bell-ring" : "bell-off"}
+                              size={24}
+                              onPress={ async () => {
+                                saveNotification()
+                              }}
+                            />
                             <SwitchWithIcons
                               onValueChange={(value) => toggleTheme()}
                               value={isThemeDark}
@@ -365,6 +387,8 @@ const App = () => {
                       component={CurrencySelection}
                     />
                   </Stack.Navigator>
+                  </BackgroundTask>
+                  <Toast ref={(ref) => global.toast = ref} />
                 </NavigationContainer>
                 <Portal>
                   <Dialog visible={showDialog} onDismiss={() => setShowDialog(false)}>

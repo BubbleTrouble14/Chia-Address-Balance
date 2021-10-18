@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react';
 
 import { SafeAreaView, FlatList, View, Pressable } from 'react-native';
-import { FAB } from 'react-native-paper';
+import { FAB , Button, Paragraph, Dialog, Portal, useTheme, Text, TextInput } from 'react-native-paper';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { useToast } from 'react-native-toast-notifications';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import ThemeContext from '../contexts/ThemeContext';
-import { Button, Paragraph, Dialog, Portal, useTheme, Text, TextInput } from 'react-native-paper';
-import { useToast } from 'react-native-fast-toast';
+
 import AddressContext from '../contexts/AddressContext';
 import { saveObject } from '../LocalStorage';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // const addresses = [
 //   {
@@ -141,7 +141,7 @@ const Address = () => {
       return (
         <FlatList data={addresses} renderItem={renderItem} keyExtractor={(item) => item.address} />
       );
-    } else {
+    } 
       return (
         <Text
           style={{
@@ -155,7 +155,7 @@ const Address = () => {
           Add chia addresses here.
         </Text>
       );
-    }
+    
   };
 
   return (
@@ -176,7 +176,7 @@ const Address = () => {
             }
       }
     >
-      <Content></Content>
+      <Content />
       {/* <FlatList data={addresses} renderItem={renderItem} keyExtractor={(item) => item.address} /> */}
       <FAB
         style={{
@@ -199,7 +199,7 @@ const Address = () => {
               onChangeText={(text) => {
                 setTextTitleInput(text);
               }}
-            ></TextInput>
+             />
             <TextInput
               style={{ marginTop: 16 }}
               placeholder="Enter Chia Address"
@@ -209,7 +209,7 @@ const Address = () => {
               importantForAutofill="no"
               dataDetectorTypes="none"
               // right={<TextInput.Icon name="qrcode" forceTextInputFocus={false} />}
-            ></TextInput>
+             />
           </Dialog.Content>
           <Dialog.Actions>
             <Button
@@ -224,7 +224,7 @@ const Address = () => {
                 ) {
                   if (
                     addresses.some(
-                      (val) => val.address === formattedInputText //inputText
+                      (val) => val.address === formattedInputText // inputText
                     )
                   ) {
                     toast.show('Already added Address');
@@ -240,11 +240,9 @@ const Address = () => {
 
                     hideDialog();
                   }
-                } else {
-                  if (inputTitleText.length === 0) {
+                } else if (inputTitleText.length === 0) {
                     toast.show('Please enter a title name for the address');
                   } else toast.show('Chia address not valid');
-                }
               }}
             >
               Add
@@ -261,7 +259,7 @@ const Address = () => {
               onChangeText={(text) => {
                 setNewTitle(text);
               }}
-            ></TextInput>
+             />
             <Text style={{ marginTop: 16, fontSize: 13, textAlign: 'center' }}>
               {selectedItem ? selectedItem.address : ''}
             </Text>

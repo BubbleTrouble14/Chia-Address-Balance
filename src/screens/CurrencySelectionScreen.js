@@ -11,7 +11,7 @@ const Item = ({ item, onPress, backgroundColor }) => (
       marginTop: 8,
       marginBottom: 8,
       borderRadius: 10,
-      backgroundColor: backgroundColor,
+      backgroundColor,
     }}
   >
     <Card.Title title={Object.entries(item)[1][0]} subtitle={item.title} />
@@ -43,9 +43,7 @@ export const currencies = [
   { key: 21, ETC: 'ETC', title: 'Ethereum Classic' },
 ];
 
-export const getCurrencyFromKey = (key) => {
-  return Object.keys(currencies.find((currency) => currency.key === key))[1];
-};
+export const getCurrencyFromKey = (key) => Object.keys(currencies.find((currency) => currency.key === key))[1];
 
 const CurrencySelection = ({ navigation }) => {
   const theme = useTheme();

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "700544538868",
+    "project_id": "chiaaddressbalance",
+    "storage_bucket": "chiaaddressbalance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700544538868:android:8229908574791dabfae6a1",
+        "android_client_info": {
+          "package_name": "com.chiawallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "700544538868-0513ud89inuo3tr02elp9pshendavgu0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtC2mjW6xw_35oHKjkgY8owHkndnrjkZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "700544538868-0513ud89inuo3tr02elp9pshendavgu0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

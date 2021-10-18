@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import AddressContext from '../contexts/AddressContext';
 
-import LogoIcon from '../assets/svgs/LogoIcon';
 import { useTheme, Appbar, TouchableRipple, Switch, Text, IconButton } from 'react-native-paper';
 import {
   SafeAreaView,
@@ -14,6 +12,8 @@ import {
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import getSymbolFromCurrency from 'currency-symbol-map';
+import LogoIcon from '../assets/svgs/LogoIcon';
+import AddressContext from '../contexts/AddressContext';
 import Pattern from '../assets/svgs/Pattern';
 
 import { getBalance, getChiaPriceInFiat } from '../Api';
@@ -40,9 +40,9 @@ const getPrice = (chiaCoins, chiaPriceInFiat, currencyKey) => {
       (chiaCoins / Math.pow(10, 12)) * chiaPriceInFiat,
       getCurrencyFromKey(currencyKey)
     );
-  } else {
+  } 
     return formatPrice(0, getCurrencyFromKey(currencyKey));
-  }
+  
 };
 
 const CuteImage = ({ isThemeDark, chiaCoins }) => {
@@ -52,31 +52,31 @@ const CuteImage = ({ isThemeDark, chiaCoins }) => {
         <Image
           style={{ height: 300, width: 200 }}
           source={require('../assets/pngs/girl_happy.png')}
-        ></Image>
+         />
       );
-    } else {
+    } 
       return (
         <Image
           style={{ height: 300, width: 200 }}
           source={require('../assets/pngs/girl_sad.png')}
-        ></Image>
+         />
       );
-    }
-  } else if (chiaCoins > 0.001) {
+    
+  } if (chiaCoins > 0.001) {
     return (
       <Image
         style={{ height: 300, width: 200 }}
         source={require('../assets/pngs/boy_happy.png')}
-      ></Image>
+       />
     );
-  } else {
+  } 
     return (
       <Image
         style={{ height: 300, width: 200 }}
         source={require('../assets/pngs/boy_sad.png')}
-      ></Image>
+       />
     );
-  }
+  
 };
 
 const WalletBalance = (props) => {
@@ -98,7 +98,7 @@ const WalletBalance = (props) => {
   const totalChiaCount = (walletBalances) => {
     let val = 0;
     walletBalances.forEach((item) => {
-      val = val + item.mojo;
+      val += item.mojo;
     });
     return val;
   };
@@ -108,19 +108,12 @@ const WalletBalance = (props) => {
       data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`]
     );
     setChiaCoins(totalChiaCount(data.walletBalances));
-    console.log(data);
-    // console.log(
-    //   'Fecthed data: ',
-    //   data.chiaPriceInFiat.chia[`${getCurrencyFromKey(currencyKey).toLowerCase()}`],
-    //   data.walletBalances
-    // );
     setState('Success');
   };
 
   useEffect(() => {
     if (refreshing) {
       const calls = [];
-      console.log(addresses);
       addresses.forEach((wallet) => {
         if (wallet.checked)
           calls.push({ address: wallet.address, promise: getBalance(wallet.address) });
@@ -131,7 +124,6 @@ const WalletBalance = (props) => {
           setStates(data);
         })
         .catch((err) => {
-          console.log(err);
           setRefreshing(false);
           setState('Error');
         });
@@ -176,7 +168,7 @@ const WalletBalance = (props) => {
             marginTop: 16,
           }}
         >
-          {chiaCoins ? (chiaCoins / Math.pow(10, 12)).toFixed(2) + ' XCH' : 0 + ' XCH'}
+          {chiaCoins ? `${(chiaCoins / Math.pow(10, 12)).toFixed(2)  } XCH` : `${0  } XCH`}
         </Text>
         <View style={{ flexDirection: 'row', marginTop: 0 }}>
           <Text
@@ -203,7 +195,7 @@ const WalletBalance = (props) => {
         </View>
       </View>
     );
-  } else if (state === 'Error') {
+  } if (state === 'Error') {
     return (
       <View>
         <Text
@@ -217,7 +209,7 @@ const WalletBalance = (props) => {
         </Text>
       </View>
     );
-  } else if (state === 'No Addresses') {
+  } if (state === 'No Addresses') {
     return (
       <View>
         <Text
@@ -231,7 +223,7 @@ const WalletBalance = (props) => {
         </Text>
       </View>
     );
-  } else {
+  } 
     return (
       <View>
         <Text
@@ -245,7 +237,7 @@ const WalletBalance = (props) => {
         </Text>
       </View>
     );
-  }
+  
 };
 
 const HomeScreen = () => {

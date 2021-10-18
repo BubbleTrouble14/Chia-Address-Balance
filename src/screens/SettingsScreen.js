@@ -1,10 +1,7 @@
 import React, { useContext, useState } from 'react';
 
 import { SafeAreaView, FlatList, View } from 'react-native';
-import { Card, FAB, TouchableRipple } from 'react-native-paper';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import ThemeContext from '../contexts/ThemeContext';
-import {
+import { Card, FAB, TouchableRipple ,
   Title,
   Button,
   Paragraph,
@@ -14,11 +11,13 @@ import {
   Text,
   TextInput,
 } from 'react-native-paper';
-import { useToast } from 'react-native-fast-toast';
-import AddressContext from '../contexts/AddressContext';
-import { saveObject } from '../LocalStorage';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import { saveObject } from '../LocalStorage';
+import ThemeContext from '../contexts/ThemeContext';
+import AddressContext from '../contexts/AddressContext';
 import CurrencySelection, { getCurrencyFromKey } from './CurrencySelectionScreen';
 import CurrencyContext from '../contexts/CurrencyContext';
 

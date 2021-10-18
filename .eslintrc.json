@@ -8,8 +8,8 @@
     "plugin:react/recommended",
     "airbnb",
     "airbnb/hooks",
-    "prettier",
-    "prettier/react"
+    "eslint:recommended",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -25,10 +25,17 @@
 
     // prevent eslint to complain about the "styles" variable being used before it was defined
     "no-use-before-define": ["error", {"variables": false}],
+    "consistent-return": "off",
+    "no-param-reassign": "off",
+    "no-restricted-properties": "warn",
+    "global-require": "off",
+    "no-shadow": "off",
+    "no-unused-vars": "warn",
+    "react-hooks/exhaustive-deps": "warn", // <--- THIS IS THE NEW RULE
 
     // ignore errors for the react-navigation package
     "react/prop-types": [
-      "error",
+      "warn",
       {"ignore": ["navigation", "navigation.navigate"]}
     ]
   }
