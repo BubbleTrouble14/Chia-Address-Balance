@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import BackgroundFetch from "react-native-background-fetch";
 import PushNotification, {Importance} from 'react-native-push-notification';
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { getObject, saveObject } from '../LocalStorage';
 import { getBalanceWithAddress } from "../Api";
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { loadEvents, persistEvents } from '../utils/Utils';
 
 export const fetchXCHBalanceForAddresses = async () => {
@@ -139,7 +139,16 @@ const BackgroundTask = ({notification, children}) =>
           importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
           vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
         }
-      );   
+      );  
+      
+      PushNotificationIOS.addNotificationRequest({
+        id: 'notificationWithSound',
+        title: 'Sample Title',
+        subtitle: 'Sample Subtitle',
+        body: 'Sample local notification with custom sound',
+        sound: 'customSound.wav',
+        badge: 1,
+      });
 
         init();     
     }, [])
