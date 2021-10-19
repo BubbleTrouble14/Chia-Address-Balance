@@ -99,30 +99,6 @@ export const fetchXCHBalanceForAddresses = async () => {
       saveObject(newData, "notificationData")
     }
   }
-  
-  // const onLocalNotification = (notification) => {
-  //   const isClicked = notification.getData().userInteraction === 1;
-
-  //   Alert.alert(
-  //     'Local Notification Received',
-  //     `Alert title:  ${notification.getTitle()},
-  //     Alert subtitle:  ${notification.getSubtitle()},
-  //     Alert message:  ${notification.getMessage()},
-  //     Badge: ${notification.getBadgeCount()},
-  //     Sound: ${notification.getSound()},
-  //     Thread Id:  ${notification.getThreadID()},
-  //     Action Id:  ${notification.getActionIdentifier()},
-  //     User Text:  ${notification.getUserText()},
-  //     Notification is clicked: ${String(isClicked)}.`,
-  //     [
-  //       {
-  //         text: 'Dismiss',
-  //         onPress: null,
-  //       },
-  //     ],
-  //   );
-  // };
-
 
 const BackgroundTask = ({notification, children}) =>
 {
@@ -187,11 +163,6 @@ const BackgroundTask = ({notification, children}) =>
         }
       );  
 
-      // PushNotificationIOS.addEventListener(
-      //   'localNotification',
-      //   onLocalNotification,
-      // );  
-
       PushNotificationIOS.requestPermissions({
         alert: true,
         badge: true,
@@ -205,21 +176,8 @@ const BackgroundTask = ({notification, children}) =>
           console.log('PushNotificationIOS.requestPermissions failed', data);
         },
       );
-      
-      PushNotificationIOS.addNotificationRequest({
-        id: 'notificationWithSound',
-        title: 'Sample Title',
-        // subtitle: 'Sample Subtitle',
-        body: 'Sample local notification with custom sound',
-        sound: 'customSound.wav',
-        badge: 1,
-      });
 
         init();     
-
-        // return(() => {
-        //   PushNotificationIOS.removeEventListener('localNotification');
-        // })
 
     }, [])
     return (<>{children}</>)
