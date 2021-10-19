@@ -8,7 +8,7 @@
 
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Linking, View, SafeAreaView, StatusBar } from 'react-native';
+import { Linking, View, SafeAreaView, StatusBar, Platform } from 'react-native';
 import { useTheme, Appbar, TouchableRipple, Switch, Text, IconButton } from 'react-native-paper';
 import HomeScreen from './HomeScreen';
 import Address from './AddressScreen';
@@ -18,13 +18,11 @@ import WalletIcon from '../assets/svgs/WalletIcon';
 
 const Tab = createMaterialBottomTabNavigator();
 
-const Donate = () => {
-  return (
+const Donate = () => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Home!</Text>
     </View>
   );
-};
 
 const HomeTabs = () => {
   const theme = useTheme();
@@ -76,7 +74,47 @@ const HomeTabs = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {
+        Platform.OS === 'android' &&
+              <Tab.Screen
+              name="Donate"
+              component={Donate}
+              listeners={{
+                tabPress: (e) => {
+                  e.preventDefault();
+      
+                  Linking.canOpenURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance').then(
+                    (supported) => {
+                      if (supported) {
+                        Linking.openURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance');
+                      } else {
+                        console.log("Don't know how to open URI");
+                      }
+                    }
+                  );
+                },
+              }}
+              options={{
+                style: {
+                  backgroundColor: 'red',
+                  height: 45,
+                },
+                tabBarLabel: 'Donate',
+                tabBarIcon: ({ color }) => (
+                  <DonateIcon
+                    color={color}
+                    style={{
+                      marginTop: -5,
+                      height: 30,
+                      width: 30,
+                    }}
+                  />
+                ),
+              }}
+            />
+        }
+      
+      {/* <Tab.Screen
         name="Donate"
         component={Donate}
         listeners={{
@@ -111,7 +149,7 @@ const HomeTabs = () => {
             />
           ),
         }}
-      />
+      /> */}
     </Tab.Navigator>
   );
 };
