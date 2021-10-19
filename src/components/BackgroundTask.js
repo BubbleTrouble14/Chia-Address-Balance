@@ -92,7 +92,6 @@ const BackgroundTask = ({notification, children}) =>
     try {
       if (!notification) {
         await BackgroundFetch.stop();
-        console.log("Disable Notifications") 
       }
     } catch (e) {
       console.warn(`[BackgroundFetch] ${notification ? 'start' : 'stop'} falied`, e);
@@ -100,14 +99,11 @@ const BackgroundTask = ({notification, children}) =>
   };
 
   const onBackgroundFetchEvent = async (taskId) => {
-    console.log('[BackgroundFetch] Event taskId: ', taskId);
-
     updateNotification()
     BackgroundFetch.finish(taskId);
   };
 
   const onBackgroundFetchTimeout = async (taskId) => {
-    console.log('[BackgroundFetch] TIMEOUT taskId: ', taskId);
     BackgroundFetch.finish(taskId);
   };
 
