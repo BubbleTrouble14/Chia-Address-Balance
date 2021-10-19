@@ -99,30 +99,6 @@ export const fetchXCHBalanceForAddresses = async () => {
       saveObject(newData, "notificationData")
     }
   }
-  
-  // const onLocalNotification = (notification) => {
-  //   const isClicked = notification.getData().userInteraction === 1;
-
-  //   Alert.alert(
-  //     'Local Notification Received',
-  //     `Alert title:  ${notification.getTitle()},
-  //     Alert subtitle:  ${notification.getSubtitle()},
-  //     Alert message:  ${notification.getMessage()},
-  //     Badge: ${notification.getBadgeCount()},
-  //     Sound: ${notification.getSound()},
-  //     Thread Id:  ${notification.getThreadID()},
-  //     Action Id:  ${notification.getActionIdentifier()},
-  //     User Text:  ${notification.getUserText()},
-  //     Notification is clicked: ${String(isClicked)}.`,
-  //     [
-  //       {
-  //         text: 'Dismiss',
-  //         onPress: null,
-  //       },
-  //     ],
-  //   );
-  // };
-
 
 const BackgroundTask = ({notification, children}) =>
 {
