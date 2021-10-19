@@ -187,11 +187,6 @@ const BackgroundTask = ({notification, children}) =>
         }
       );  
 
-      // PushNotificationIOS.addEventListener(
-      //   'localNotification',
-      //   onLocalNotification,
-      // );  
-
       PushNotificationIOS.requestPermissions({
         alert: true,
         badge: true,
@@ -205,21 +200,8 @@ const BackgroundTask = ({notification, children}) =>
           console.log('PushNotificationIOS.requestPermissions failed', data);
         },
       );
-      
-      PushNotificationIOS.addNotificationRequest({
-        id: 'notificationWithSound',
-        title: 'Sample Title',
-        // subtitle: 'Sample Subtitle',
-        body: 'Sample local notification with custom sound',
-        sound: 'customSound.wav',
-        badge: 1,
-      });
 
         init();     
-
-        // return(() => {
-        //   PushNotificationIOS.removeEventListener('localNotification');
-        // })
 
     }, [])
     return (<>{children}</>)
