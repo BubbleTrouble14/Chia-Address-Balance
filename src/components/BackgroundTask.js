@@ -3,6 +3,7 @@ import BackgroundFetch from "react-native-background-fetch";
 import PushNotification, {Importance} from 'react-native-push-notification';
 import { getObject, saveObject } from '../LocalStorage';
 import { getBalanceWithAddress } from "../Api";
+import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import { loadEvents, persistEvents } from '../utils/Utils';
 
 export const fetchXCHBalanceForAddresses = async () => {
