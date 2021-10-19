@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import BackgroundFetch from "react-native-background-fetch";
 import PushNotification, {Importance} from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
+import { Alert } from 'react-native';
 import { getObject, saveObject } from '../LocalStorage';
 import { getBalanceWithAddress } from "../Api";
 import { loadEvents, persistEvents } from '../utils/Utils';
@@ -85,6 +86,29 @@ export const fetchXCHBalanceForAddresses = async () => {
     }
   }
   
+  const onLocalNotification = (notification) => {
+    const isClicked = notification.getData().userInteraction === 1;
+
+    Alert.alert(
+      'Local Notification Received',
+      `Alert title:  ${notification.getTitle()},
+      Alert subtitle:  ${notification.getSubtitle()},
+      Alert message:  ${notification.getMessage()},
+      Badge: ${notification.getBadgeCount()},
+      Sound: ${notification.getSound()},
+      Thread Id:  ${notification.getThreadID()},
+      Action Id:  ${notification.getActionIdentifier()},
+      User Text:  ${notification.getUserText()},
+      Notification is clicked: ${String(isClicked)}.`,
+      [
+        {
+          text: 'Dismiss',
+          onPress: null,
+        },
+      ],
+    );
+  };
+
 
 const BackgroundTask = ({notification, children}) =>
 {
@@ -140,6 +164,25 @@ const BackgroundTask = ({notification, children}) =>
           vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
         }
       );  
+
+      PushNotificationIOS.addEventListener(
+        'localNotification',
+        onLocalNotification,
+      );  
+
+      PushNotificationIOS.requestPermissions({
+        alert: true,
+        badge: true,
+        sound: true,
+        critical: true,
+      }).then(
+        (data) => {
+          console.log('PushNotificationIOS.requestPermissions', data);
+        },
+        (data) => {
+          console.log('PushNotificationIOS.requestPermissions failed', data);
+        },
+      );
       
       PushNotificationIOS.addNotificationRequest({
         id: 'notificationWithSound',
@@ -151,6 +194,11 @@ const BackgroundTask = ({notification, children}) =>
       });
 
         init();     
+
+        return(() => {
+          PushNotificationIOS.removeEventListener('localNotification');
+        })
+
     }, [])
     return (<>{children}</>)
 }
