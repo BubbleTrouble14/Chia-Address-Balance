@@ -139,6 +139,14 @@ const BackgroundTask = ({notification, children}) =>
 
   const onBackgroundFetchEvent = async (taskId) => {
     updateNotification()
+    PushNotificationIOS.addNotificationRequest({
+      id: 'notificationWithSound',
+      title: 'Sample Title',
+      // subtitle: 'Sample Subtitle',
+      body: 'Sample local notification with custom sound',
+      sound: 'customSound.wav',
+      badge: 1,
+    });
     BackgroundFetch.finish(taskId);
   };
 

@@ -53,6 +53,10 @@ static void InitializeFlipper(UIApplication *application) {
 
   UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
   center.delegate = self;
+  
+  // [REQUIRED] Register BackgroundFetch
+  [[TSBackgroundFetch sharedInstance] didFinishLaunching];
+  
   return YES;
 }
 
