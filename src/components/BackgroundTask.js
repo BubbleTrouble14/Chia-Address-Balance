@@ -170,20 +170,21 @@ const BackgroundTask = ({ notification, children }) => {
         importance: Importance.HIGH, // (optional) default: Importance.HIGH. Int value of the Android notification importance
         vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.import { convertMojoToChia } from './../utils/ChiaFormatter';
       });
+      init();
     } else if (Platform.OS === 'ios') {
-      PushNotificationIOS.requestPermissions({
-        alert: true,
-        badge: true,
-        sound: true,
-        critical: true,
-      }).then(
-        (data) => {
-          console.log('PushNotificationIOS.requestPermissions', data);
-        },
-        (data) => {
-          console.log('PushNotificationIOS.requestPermissions failed', data);
-        }
-      );
+      // PushNotificationIOS.requestPermissions({
+      //   alert: true,
+      //   badge: true,
+      //   sound: true,
+      //   critical: true,
+      // }).then(
+      //   (data) => {
+      //     console.log('PushNotificationIOS.requestPermissions', data);
+      //   },
+      //   (data) => {
+      //     console.log('PushNotificationIOS.requestPermissions failed', data);
+      //   }
+      // );
     }
 
     // sendNotification(
@@ -193,7 +194,7 @@ const BackgroundTask = ({ notification, children }) => {
     //   'dsdg'
     // );
 
-    init();
+    // init();
   }, []);
   return <>{children}</>;
 };

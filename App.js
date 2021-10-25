@@ -9,7 +9,7 @@
  * @flow strict-local
  */
 
-import React, { useState, useCallback, useMemo , useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {
   View,
@@ -18,14 +18,12 @@ import {
   Platform,
   FlatList,
   Text,
- NativeModules } from 'react-native';
+  NativeModules,
+} from 'react-native';
 
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Toast, { ToastProvider} from 'react-native-toast-notifications'
-import {
-  createStackNavigator,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
+import Toast, { ToastProvider } from 'react-native-toast-notifications';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import {
   IconButton,
   Portal,
@@ -36,13 +34,11 @@ import {
   DefaultTheme as PaperDefaultTheme,
   Provider as PaperProvider,
 } from 'react-native-paper';
-import { 
+import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
-
-
 
 import merge from 'deepmerge';
 import SwitchWithIcons from 'react-native-switch-with-icons';
@@ -60,14 +56,13 @@ import HomeTabs from './src/screens/HomeTabsScreen';
 import { getObject, saveObject } from './src/LocalStorage';
 import BackgroundTask from './src/components/BackgroundTask';
 
-
 const CombinedDefaultTheme = merge(PaperDefaultTheme, NavigationDefaultTheme);
 const CombinedDarkTheme = merge(PaperDarkTheme, NavigationDarkTheme);
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
-export const {SharedStorage} = NativeModules;
+export const { SharedStorage } = NativeModules;
 
 const LightTheme = {
   ...CombinedDefaultTheme,
@@ -96,9 +91,19 @@ const DarkTheme = {
 };
 
 export const fetchInitData = () => {
-  const promises = [getObject('addresses'), getObject('currencyKey'), getObject('isThemeDark'), getObject('notification')];
+  const promises = [
+    getObject('addresses'),
+    getObject('currencyKey'),
+    getObject('isThemeDark'),
+    getObject('notification'),
+  ];
 
-  return Promise.all(promises).then(([addresses, currencyKey, isThemeDark, notification]) => ({ addresses, currencyKey, isThemeDark, notification }));
+  return Promise.all(promises).then(([addresses, currencyKey, isThemeDark, notification]) => ({
+    addresses,
+    currencyKey,
+    isThemeDark,
+    notification,
+  }));
 };
 
 if (Platform.OS === 'android') {
@@ -141,7 +146,7 @@ const Item = ({ theme, title, address, checked, onChecked }) => (
       status={checked ? 'checked' : 'unchecked'}
       onPress={() => onChecked(!checked)}
       style={{ flex: 1 }}
-     />
+    />
   </View>
 );
 
@@ -194,18 +199,16 @@ const App = () => {
   };
 
   const saveNotification = async () => {
-    saveObject(!notification,
-      'notification'
-    );
-    setNotification(!notification)
+    saveObject(!notification, 'notification');
+    setNotification(!notification);
     if (!notification) {
-       await BackgroundFetch.start();
-       toast.show("Enabled Notifications");
+      await BackgroundFetch.start();
+      toast.show('Enabled Notifications');
     } else {
-       await BackgroundFetch.stop();
-       toast.show("Disabled Notifications");
+      await BackgroundFetch.stop();
+      toast.show('Disabled Notifications');
     }
-  }
+  };
 
   const addressValue = { addresses, addAddress, updateAddressTitle, removeAddress };
   const currencyValue = { currencyKey, updateCurrency };
@@ -222,9 +225,8 @@ const App = () => {
         if (data.isThemeDark) {
           setIsThemeDark(data.isThemeDark);
         }
-        if(data.notification !== null)
-        {
-          setNotification(data.notification)
+        if (data.notification !== null) {
+          setNotification(data.notification);
         }
         setLoading(false);
       })
@@ -265,20 +267,19 @@ const App = () => {
       return (
         <FlatList data={addresses} renderItem={renderItem} keyExtractor={(item) => item.address} />
       );
-    } 
-      return (
-        <Text
-          style={{
-            textAlign: 'center',
-            fontFamily: 'Heebo-Regular',
-            color: theme.colors.text,
-            fontSize: 24,
-          }}
-        >
-          Add chia addresses here.
-        </Text>
-      );
-    
+    }
+    return (
+      <Text
+        style={{
+          textAlign: 'center',
+          fontFamily: 'Heebo-Regular',
+          color: theme.colors.text,
+          fontSize: 24,
+        }}
+      >
+        Add chia addresses here.
+      </Text>
+    );
   };
 
   if (loading)
@@ -297,98 +298,100 @@ const App = () => {
               <PaperProvider theme={theme}>
                 <NavigationContainer theme={theme}>
                   <BackgroundTask notification={notification}>
-                  <StatusBar backgroundColor={theme.colors.background} barStyle="light-content" />
-                  <Stack.Navigator mode="modal">
-                    <Stack.Screen
-                      name="Home"
-                      component={HomeTabs}
-                      options={({ route, navigation }) => ({
-                        headerStyle: {
-                          backgroundColor: theme.colors.background,
-                        },
-                        headerLeft: (props) => (
-                          <IconButton
-                            style={{ marginStart: 16 }}
-                            icon="cog"
-                            onPress={() => navigation.navigate('Settings')}
-                          />
-                        ),
-                        headerTitle: '',
-                        headerRight: () => (
-                          <View
-                            style={{
-                              display: 'flex',
-                              flexDirection: 'row',
-                              marginEnd: 10,
-                              alignItems: 'center',
-                            }}
-                          >
-                            {/* <Switch
+                    <StatusBar backgroundColor={theme.colors.background} barStyle="light-content" />
+                    <Stack.Navigator mode="modal">
+                      <Stack.Screen
+                        name="Home"
+                        component={HomeTabs}
+                        options={({ route, navigation }) => ({
+                          headerStyle: {
+                            backgroundColor: theme.colors.background,
+                          },
+                          headerLeft: (props) => (
+                            <IconButton
+                              style={{ marginStart: 16 }}
+                              icon="cog"
+                              onPress={() => navigation.navigate('Settings')}
+                            />
+                          ),
+                          headerTitle: '',
+                          headerRight: () => (
+                            <View
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                marginEnd: 10,
+                                alignItems: 'center',
+                              }}
+                            >
+                              {/* <Switch
                               onValueChange={() => {
                                 toggleTheme();
                               }}
                               style={{ marginEnd: 16 }}
                               value={isThemeDark}
                             /> */}
-                            <IconButton
-                              icon={ notification ? "bell-ring" : "bell-off"}
-                              size={24}
-                              onPress={ async () => {
-                                saveNotification()
-                              }}
-                            />
-                            <SwitchWithIcons
-                              onValueChange={(value) => toggleTheme()}
-                              value={isThemeDark}
-                              icon={{ true: MoonIcon, false: SunIcon }}
-                              trackColor={{
-                                true: theme.colors.leaves,
-                                false: theme.colors.leaves,
-                              }}
-                              thumbColor={{
-                                true: theme.colors.accent,
-                                false: theme.colors.accent,
-                              }}
-                              iconColor={{ true: '#fff', false: '#fff' }}
-                            />
-                            <IconButton
-                              icon="filter"
-                              size={24}
-                              onPress={() => {
-                                if (addresses.length > 0) {
-                                  setShowDialog(true);
-                                } else {
-                                  // toast.show('No addresses to filter');
-                                }
-                              }}
-                            />
-                          </View>
-                        ),
-                      })}
-                    />
-                    <Stack.Screen
-                      options={{
-                        headerStyle: {
-                          backgroundColor: theme.colors.background,
-                        },
-                      }}
-                      name="Settings"
-                      component={Settings}
-                    />
-                    <Stack.Screen
-                      options={{
-                        headerStyle: {
-                          backgroundColor: theme.colors.background,
-                        },
-                        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-                        title: 'Select Currency',
-                      }}
-                      name="CurrencySelection"
-                      component={CurrencySelection}
-                    />
-                  </Stack.Navigator>
+                              {Platform.OS === 'android' && (
+                                <IconButton
+                                  icon={notification ? 'bell-ring' : 'bell-off'}
+                                  size={24}
+                                  onPress={async () => {
+                                    saveNotification();
+                                  }}
+                                />
+                              )}
+                              <SwitchWithIcons
+                                onValueChange={(value) => toggleTheme()}
+                                value={isThemeDark}
+                                icon={{ true: MoonIcon, false: SunIcon }}
+                                trackColor={{
+                                  true: theme.colors.leaves,
+                                  false: theme.colors.leaves,
+                                }}
+                                thumbColor={{
+                                  true: theme.colors.accent,
+                                  false: theme.colors.accent,
+                                }}
+                                iconColor={{ true: '#fff', false: '#fff' }}
+                              />
+                              <IconButton
+                                icon="filter"
+                                size={24}
+                                onPress={() => {
+                                  if (addresses.length > 0) {
+                                    setShowDialog(true);
+                                  } else {
+                                    // toast.show('No addresses to filter');
+                                  }
+                                }}
+                              />
+                            </View>
+                          ),
+                        })}
+                      />
+                      <Stack.Screen
+                        options={{
+                          headerStyle: {
+                            backgroundColor: theme.colors.background,
+                          },
+                        }}
+                        name="Settings"
+                        component={Settings}
+                      />
+                      <Stack.Screen
+                        options={{
+                          headerStyle: {
+                            backgroundColor: theme.colors.background,
+                          },
+                          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+                          title: 'Select Currency',
+                        }}
+                        name="CurrencySelection"
+                        component={CurrencySelection}
+                      />
+                    </Stack.Navigator>
                   </BackgroundTask>
-                  <Toast ref={(ref) => global.toast = ref} />
+                  <Toast ref={(ref) => (global.toast = ref)} />
                 </NavigationContainer>
                 <Portal>
                   <Dialog visible={showDialog} onDismiss={() => setShowDialog(false)}>
