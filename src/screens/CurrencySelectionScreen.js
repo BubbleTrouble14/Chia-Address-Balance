@@ -43,7 +43,8 @@ export const currencies = [
   { key: 21, ETC: 'ETC', title: 'Ethereum Classic' },
 ];
 
-export const getCurrencyFromKey = (key) => Object.keys(currencies.find((currency) => currency.key === key))[1];
+export const getCurrencyFromKey = (key) =>
+  Object.keys(currencies.find((currency) => currency.key === key))[1];
 
 const CurrencySelection = ({ navigation }) => {
   const theme = useTheme();

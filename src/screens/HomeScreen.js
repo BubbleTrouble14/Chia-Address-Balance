@@ -9,6 +9,7 @@ import {
   Image,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import getSymbolFromCurrency from 'currency-symbol-map';
@@ -20,6 +21,8 @@ import { getBalance, getChiaPriceInFiat } from '../Api';
 import ThemeContext from '../contexts/ThemeContext';
 import CurrencyContext from '../contexts/CurrencyContext';
 import { getCurrencyFromKey } from './CurrencySelectionScreen';
+import { getObject, saveObject } from '../LocalStorage';
+import { formatToChiaObj, convertMojoToChia } from '../utils/ChiaFormatter';
 
 const formatPrice = (price, currency) => {
   const currencyOptions = new Intl.NumberFormat('en-US', {
@@ -40,9 +43,8 @@ const getPrice = (chiaCoins, chiaPriceInFiat, currencyKey) => {
       (chiaCoins / Math.pow(10, 12)) * chiaPriceInFiat,
       getCurrencyFromKey(currencyKey)
     );
-  } 
-    return formatPrice(0, getCurrencyFromKey(currencyKey));
-  
+  }
+  return formatPrice(0, getCurrencyFromKey(currencyKey));
 };
 
 const CuteImage = ({ isThemeDark, chiaCoins }) => {
@@ -52,31 +54,21 @@ const CuteImage = ({ isThemeDark, chiaCoins }) => {
         <Image
           style={{ height: 300, width: 200 }}
           source={require('../assets/pngs/girl_happy.png')}
-         />
+        />
       );
-    } 
-      return (
-        <Image
-          style={{ height: 300, width: 200 }}
-          source={require('../assets/pngs/girl_sad.png')}
-         />
-      );
-    
-  } if (chiaCoins > 0.001) {
+    }
     return (
-      <Image
-        style={{ height: 300, width: 200 }}
-        source={require('../assets/pngs/boy_happy.png')}
-       />
+      <Image style={{ height: 300, width: 200 }} source={require('../assets/pngs/girl_sad.png')} />
     );
-  } 
+  }
+  if (chiaCoins > 0.001) {
     return (
-      <Image
-        style={{ height: 300, width: 200 }}
-        source={require('../assets/pngs/boy_sad.png')}
-       />
+      <Image style={{ height: 300, width: 200 }} source={require('../assets/pngs/boy_happy.png')} />
     );
-  
+  }
+  return (
+    <Image style={{ height: 300, width: 200 }} source={require('../assets/pngs/boy_sad.png')} />
+  );
 };
 
 const WalletBalance = (props) => {
@@ -86,6 +78,13 @@ const WalletBalance = (props) => {
   const { isThemeDark } = useContext(ThemeContext);
   const [chiaCoins, setChiaCoins] = useState(0);
   const [chiaPriceInFiat, setChiaPriceInFiat] = useState(0);
+  // const [toggleFormat, setToggle] = useState(async () => {await getObject('xchToggle')})
+
+  // simplified, normal, detailed
+  const [toggleFormat, setToggle] = useState(async () => {
+    const data = await getObject('xchToggle');
+    setToggle(data || 'simplified');
+  });
 
   const fetchBalanceForAddresses = async (currencyKey, wallets) => {
     const promises = wallets.map((data) => data.promise);
@@ -150,6 +149,153 @@ const WalletBalance = (props) => {
     }
   }, [addresses, currencyKey]);
 
+  const onChiaTextPressed = () => {
+    if (toggleFormat === 'simplified') {
+      setToggle('normal');
+      saveObject('normal', 'xchToggle');
+    } else if (toggleFormat === 'normal') {
+      setToggle('detailed');
+      saveObject('detailed', 'xchToggle');
+    } else {
+      setToggle('simplified');
+      saveObject('simplified', 'xchToggle');
+    }
+  };
+
+  const ChiaText = () => {
+    if (chiaCoins) {
+      if (toggleFormat === 'detailed') {
+        const chiaObj = formatToChiaObj(chiaCoins);
+        return (
+          <>
+            <TouchableOpacity
+              style={{ display: 'flex', flexDirection: 'row' }}
+              onPress={onChiaTextPressed}
+            >
+              <Text
+                style={{
+                  fontFamily: 'Heebo-Extrabold',
+                  fontSize: 36,
+                  color: theme.colors.text,
+                  marginTop: 8,
+                }}
+              >
+                {chiaObj.xch}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: 'Heebo-Extrabold',
+                  fontSize: 24,
+                  color: theme.colors.primary,
+                  marginTop: 20,
+                  marginStart: 8,
+                }}
+              >
+                XCH
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ display: 'flex', flexDirection: 'row' }}
+              onPress={() => onChiaTextPressed}
+            >
+              <Text
+                style={{
+                  fontFamily: 'Heebo-Extrabold',
+                  fontSize: 16,
+                  color: theme.colors.text,
+                }}
+              >
+                {chiaObj.mojo}
+              </Text>
+              <Text
+                style={{
+                  fontFamily: 'Heebo-Extrabold',
+                  fontSize: 16,
+                  color: theme.colors.primary,
+                  marginStart: 8,
+                }}
+              >
+                Mojos
+              </Text>
+            </TouchableOpacity>
+          </>
+        );
+      }
+      if (toggleFormat === 'normal') {
+        return (
+          <TouchableOpacity
+            style={{ display: 'flex', flexDirection: 'row' }}
+            onPress={onChiaTextPressed}
+          >
+            <Text
+              style={{
+                fontFamily: 'Heebo-Extrabold',
+                fontSize: 36,
+                color: theme.colors.text,
+                marginTop: 8,
+              }}
+            >
+              {convertMojoToChia(chiaCoins)}
+            </Text>
+            <Text
+              style={{
+                fontFamily: 'Heebo-Extrabold',
+                fontSize: 24,
+                color: theme.colors.primary,
+                marginTop: 20,
+                marginStart: 8,
+              }}
+            >
+              XCH
+            </Text>
+          </TouchableOpacity>
+        );
+      }
+      return (
+        <TouchableOpacity
+          style={{ display: 'flex', flexDirection: 'row' }}
+          onPress={onChiaTextPressed}
+        >
+          <Text
+            style={{
+              fontFamily: 'Heebo-Extrabold',
+              fontSize: 36,
+              color: theme.colors.text,
+              marginTop: 8,
+            }}
+          >
+            {(chiaCoins / 10 ** 12).toFixed(2)}
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Heebo-Extrabold',
+              fontSize: 24,
+              color: theme.colors.primary,
+              marginTop: 20,
+              marginStart: 8,
+            }}
+          >
+            XCH
+          </Text>
+        </TouchableOpacity>
+      );
+    }
+
+    return (
+      <Text
+        style={{
+          fontFamily: 'Heebo-Extrabold',
+          fontSize: 36,
+          color: theme.colors.text,
+          marginTop: 16,
+        }}
+        onPress={() => setToggle(!toggleFormat)}
+      >
+        0 XCH
+      </Text>
+    );
+  };
+
   if (state === 'Success') {
     // saveObject(data, 'data');
     return (
@@ -160,17 +306,8 @@ const WalletBalance = (props) => {
         }}
       >
         <CuteImage isThemeDark={isThemeDark} chiaCoins={chiaCoins} />
-        <Text
-          style={{
-            fontFamily: 'Heebo-Extrabold',
-            fontSize: 36,
-            color: theme.colors.text,
-            marginTop: 16,
-          }}
-        >
-          {chiaCoins ? `${(chiaCoins / Math.pow(10, 12)).toFixed(2)  } XCH` : `${0  } XCH`}
-        </Text>
-        <View style={{ flexDirection: 'row', marginTop: 0 }}>
+        <ChiaText />
+        <View style={{ flexDirection: 'row', marginTop: 8 }}>
           <Text
             style={{
               fontFamily: 'Heebo-Regular',
@@ -180,7 +317,7 @@ const WalletBalance = (props) => {
               color: theme.colors.text,
             }}
           >
-            {getSymbolFromCurrency(getCurrencyFromKey(currencyKey))}
+            ≈ {getSymbolFromCurrency(getCurrencyFromKey(currencyKey))}
           </Text>
           <Text
             style={{
@@ -195,7 +332,8 @@ const WalletBalance = (props) => {
         </View>
       </View>
     );
-  } if (state === 'Error') {
+  }
+  if (state === 'Error') {
     return (
       <View>
         <Text
@@ -209,7 +347,8 @@ const WalletBalance = (props) => {
         </Text>
       </View>
     );
-  } if (state === 'No Addresses') {
+  }
+  if (state === 'No Addresses') {
     return (
       <View>
         <Text
@@ -223,21 +362,20 @@ const WalletBalance = (props) => {
         </Text>
       </View>
     );
-  } 
-    return (
-      <View>
-        <Text
-          style={{
-            marginTop: 16,
-            fontSize: 24,
-            color: theme.colors.text,
-          }}
-        >
-          Harvesting Chia ...
-        </Text>
-      </View>
-    );
-  
+  }
+  return (
+    <View>
+      <Text
+        style={{
+          marginTop: 16,
+          fontSize: 24,
+          color: theme.colors.text,
+        }}
+      >
+        Harvesting Chia ...
+      </Text>
+    </View>
+  );
 };
 
 const HomeScreen = () => {
@@ -272,7 +410,7 @@ const HomeScreen = () => {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       >
         <View style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 60 }}>
-          <Pattern color={theme.colors.leaves} />
+          <Pattern color={theme.colors.leaves} style={{ width: '100%', height: '100%' }} />
         </View>
         <Text
           style={{
