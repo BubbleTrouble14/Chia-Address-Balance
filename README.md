@@ -36,7 +36,7 @@ If you enjoy using the app feel free to leave a small donation
 
 @BubbleTrouble14 wallet addresses:
 ```
-XCH: xch1ek6342kyg8lsxlr4mntwanmc9qa44h9tp5vndg36a6jak4xwlezqxjwapl
+XCH: xch1j6xt2zx0fa06xk54rzd2km5r0zw7p5y0tg3mf69tqll8egzecd7qa8vdja
 DOGE: DRdkStn4bQtXUzk5s6K8JGs6REU3U7LwwJ
 ETH: 0x3C727882637972Ca6dbC13F287A98e8C6d60Bb10
 ADA: addr1q80lu5nmd7hngkpvhzjpl8fqgn7t3lyf9rdzg6gy7umqw4wllef8kma0x3vzew9yr7wjq38uhr7gj2x6y35sfaekqa2sw6xgwr
