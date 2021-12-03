@@ -230,7 +230,7 @@ const WalletBalance = (props) => {
             <Text
               style={{
                 fontFamily: 'Heebo-Extrabold',
-                fontSize: 36,
+                fontSize: 26,
                 color: theme.colors.text,
                 marginTop: 8,
               }}
@@ -240,9 +240,9 @@ const WalletBalance = (props) => {
             <Text
               style={{
                 fontFamily: 'Heebo-Extrabold',
-                fontSize: 24,
+                fontSize: 18,
                 color: theme.colors.primary,
-                marginTop: 20,
+                marginTop: 16,
                 marginStart: 8,
               }}
             >
