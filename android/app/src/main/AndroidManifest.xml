@@ -46,4 +46,20 @@
 
     </application>
 
+        <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data  android:scheme="https" android:host="discord.com" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data  android:scheme="https" android:host="openchia.io" />
+        </intent>
+                <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data  android:scheme="https" android:host="github.com" />
+        </intent>
+    </queries>
+
+
 </manifest>

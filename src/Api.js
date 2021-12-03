@@ -19,32 +19,41 @@ const urlPrice = 'https://api.coingecko.com/api/v3/simple/price?ids=chia&vs_curr
 //   return { chia: { usd: 211.31 } };
 // };
 
-export const getBalanceWithAddress = (address, title) => fetch(`${url}account/balance?address=${address}`)
-    .then((response) => response.json())
-    .then((json) => 
+export const getBalanceWithAddress = (address, title) =>
+  fetch(`${url}account/balance?address=${address}`)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then((json) =>
       // console.log(json.xch);
-        ({address, title, xch: json.xch, mojo: json.mojo})
-      
+      ({ address, title, xch: json.xch, mojo: json.mojo })
     )
     .catch((error) => {
       console.log(error);
     });
 
-export const getBalance = (address) => fetch(`${url}account/balance?address=${address}`)
+export const getBalance = (address) =>
+  fetch(`${url}account/balance?address=${address}`)
     .then((response) => response.json())
-    .then((json) => 
-      // console.log(json);
-       json
+    .then(
+      (json) =>
+        // console.log(json);
+        json
     )
     .catch((error) => {
       console.log(error);
     });
 
-export const getChiaPriceInFiat = (currency) => fetch(`${urlPrice}${currency}`)
+export const getChiaPriceInFiat = (currency) =>
+  fetch(`${urlPrice}${currency}`)
     .then((response) => response.json())
-    .then((json) => 
-      // console.log(json);
-       json
+    .then(
+      (json) =>
+        // console.log(json);
+        json
     )
     .catch((error) => {
       console.log(error);

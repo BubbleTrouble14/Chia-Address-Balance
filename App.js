@@ -70,6 +70,7 @@ const LightTheme = {
   colors: {
     ...CombinedDefaultTheme.colors,
     accent: '#c57e49',
+    statusBarColor: '#969696',
     primary: '#329f4d',
     background: '#f6f6f6',
     leaves: 'rgba(41, 50, 57, 0.05)',
@@ -82,6 +83,7 @@ const DarkTheme = {
   colors: {
     ...CombinedDarkTheme.colors,
     background: '#293239',
+    statusBarColor: '#1a1f24',
     text: '#ffffffff',
     surface: '#20272c',
     accent: '#c57e49',
@@ -298,7 +300,10 @@ const App = () => {
               <PaperProvider theme={theme}>
                 <NavigationContainer theme={theme}>
                   <BackgroundTask notification={notification}>
-                    <StatusBar backgroundColor={theme.colors.background} barStyle="light-content" />
+                    <StatusBar
+                      backgroundColor={theme.colors.statusBarColor}
+                      barStyle="light-content"
+                    />
                     <Stack.Navigator mode="modal">
                       <Stack.Screen
                         name="Home"

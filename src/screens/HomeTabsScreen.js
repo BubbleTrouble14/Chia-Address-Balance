@@ -13,16 +13,11 @@ import { useTheme, Appbar, TouchableRipple, Switch, Text, IconButton } from 'rea
 import HomeScreen from './HomeScreen';
 import Address from './AddressScreen';
 import AddressIcon from '../assets/svgs/AddressIcon';
-import DonateIcon from '../assets/svgs/DonateIcon';
 import WalletIcon from '../assets/svgs/WalletIcon';
+import SupportScreen from './SupportScreen';
+import OpenChiaIcon from '../assets/svgs/OpenChiaIcon';
 
 const Tab = createMaterialBottomTabNavigator();
-
-const Donate = () => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
 
 const HomeTabs = () => {
   const theme = useTheme();
@@ -74,64 +69,10 @@ const HomeTabs = () => {
           ),
         }}
       />
-      {
-        Platform.OS === 'android' &&
-              <Tab.Screen
-              name="Donate"
-              component={Donate}
-              listeners={{
-                tabPress: (e) => {
-                  e.preventDefault();
-      
-                  Linking.canOpenURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance').then(
-                    (supported) => {
-                      if (supported) {
-                        Linking.openURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance');
-                      } else {
-                        console.log("Don't know how to open URI");
-                      }
-                    }
-                  );
-                },
-              }}
-              options={{
-                style: {
-                  backgroundColor: 'red',
-                  height: 45,
-                },
-                tabBarLabel: 'Donate',
-                tabBarIcon: ({ color }) => (
-                  <DonateIcon
-                    color={color}
-                    style={{
-                      marginTop: -5,
-                      height: 30,
-                      width: 30,
-                    }}
-                  />
-                ),
-              }}
-            />
-        }
-      
-      {/* <Tab.Screen
-        name="Donate"
-        component={Donate}
-        listeners={{
-          tabPress: (e) => {
-            e.preventDefault();
 
-            Linking.canOpenURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance').then(
-              (supported) => {
-                if (supported) {
-                  Linking.openURL('https://github.com/BubbleTrouble14/Chia-Wallet-Balance');
-                } else {
-                  console.log("Don't know how to open URI");
-                }
-              }
-            );
-          },
-        }}
+      <Tab.Screen
+        name="Support"
+        component={SupportScreen}
         options={{
           style: {
             backgroundColor: 'red',
@@ -139,17 +80,16 @@ const HomeTabs = () => {
           },
           tabBarLabel: 'Donate',
           tabBarIcon: ({ color }) => (
-            <DonateIcon
+            <OpenChiaIcon
               color={color}
               style={{
                 marginTop: -5,
-                height: 30,
-                width: 30,
               }}
+              size={30}
             />
           ),
         }}
-      /> */}
+      />
     </Tab.Navigator>
   );
 };
