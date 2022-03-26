@@ -82,12 +82,12 @@ export const updateNotification = async () => {
     newData.walletBalances.forEach((newItem) => {
       oldData.walletBalances.forEach((oldItem) => {
         if (oldItem.address === newItem.address) {
-          if (newItem.mojo !== oldItem.mojo) {
-            if (newItem.mojo > oldItem.mojo) {
+          if (newItem.unspentBalance !== oldItem.unspentBalance) {
+            if (newItem.unspentBalance > oldItem.unspentBalance) {
               sendNotification(
                 'Received',
                 {
-                  dif: formatToChiaObj(newItem.mojo - oldItem.mojo),
+                  dif: formatToChiaObj(newItem.unspentBalance - oldItem.unspentBalance),
                   prev: oldItem.xch,
                   new: newItem.xch,
                 },
@@ -98,7 +98,7 @@ export const updateNotification = async () => {
               sendNotification(
                 'Sent',
                 {
-                  dif: formatToChiaObj(Math.abs(oldItem.mojo - newItem.mojo)),
+                  dif: formatToChiaObj(Math.abs(oldItem.unspentBalance - newItem.unspentBalance)),
                   prev: oldItem.xch,
                   new: newItem.xch,
                 },

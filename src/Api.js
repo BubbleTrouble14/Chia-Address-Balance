@@ -4,7 +4,7 @@ import { saveObject } from './LocalStorage';
 // Powered by XCHscan.com APIs
 // https://xchscan.com/rest-api
 
-const url = 'https://xchscan.com/api/';
+const url = 'https://api2.spacescan.io/1/';
 const urlPrice = 'https://api.coingecko.com/api/v3/simple/price?ids=chia&vs_currencies=';
 
 // Data returned examples
@@ -19,30 +19,31 @@ const urlPrice = 'https://api.coingecko.com/api/v3/simple/price?ids=chia&vs_curr
 //   return { chia: { usd: 211.31 } };
 // };
 
-export const getBalanceWithAddress = (address, title) =>
-  fetch(`${url}account/balance?address=${address}`)
+export const getBalanceWithAddress = (address, title) => {
+  fetch(`${url}xch/balance/${address}`)
     .then((response) => {
       if (response.ok) {
+        // console.log(response.json());
         return response.json();
       }
       throw new Error(response.statusText);
     })
     .then((json) =>
       // console.log(json.xch);
-      ({ address, title, xch: json.xch, mojo: json.mojo })
+      ({ address, title, xch: json.data.unspentBalance })
     )
     .catch((error) => {
       console.log(error);
     });
-
+};
 export const getBalance = (address) =>
-  fetch(`${url}account/balance?address=${address}`)
+  fetch(`${url}xch/balance/${address}`)
     .then((response) => response.json())
-    .then(
-      (json) =>
-        // console.log(json);
-        json
-    )
+    .then((json) => {
+      // console.log(json.data);
+      // console.log(json);
+      return json.data;
+    })
     .catch((error) => {
       console.log(error);
     });

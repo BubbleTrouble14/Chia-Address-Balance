@@ -39,10 +39,7 @@ const formatPrice = (price, currency) => {
 
 const getPrice = (chiaCoins, chiaPriceInFiat, currencyKey) => {
   if (chiaCoins) {
-    return formatPrice(
-      (chiaCoins / Math.pow(10, 12)) * chiaPriceInFiat,
-      getCurrencyFromKey(currencyKey)
-    );
+    return formatPrice(chiaCoins * chiaPriceInFiat, getCurrencyFromKey(currencyKey));
   }
   return formatPrice(0, getCurrencyFromKey(currencyKey));
 };
@@ -97,8 +94,9 @@ const WalletBalance = (props) => {
   const totalChiaCount = (walletBalances) => {
     let val = 0;
     walletBalances.forEach((item) => {
-      val += item.mojo;
+      val += item.unspentBalance;
     });
+    console.log(val);
     return val;
   };
 
@@ -163,9 +161,12 @@ const WalletBalance = (props) => {
   };
 
   const ChiaText = () => {
+    const mojos = chiaCoins * 10 ** 12;
+    const mojosVal = mojos % 10 ** 12;
+    const xchVal = (mojos - mojosVal) / 10 ** 12;
     if (chiaCoins) {
       if (toggleFormat === 'detailed') {
-        const chiaObj = formatToChiaObj(chiaCoins);
+        // const chiaObj = formatToChiaObj(chiaCoins);
         return (
           <>
             <TouchableOpacity
@@ -180,7 +181,7 @@ const WalletBalance = (props) => {
                   marginTop: 8,
                 }}
               >
-                {chiaObj.xch}
+                {xchVal}
               </Text>
               <Text
                 style={{
@@ -205,7 +206,7 @@ const WalletBalance = (props) => {
                   color: theme.colors.text,
                 }}
               >
-                {chiaObj.mojo}
+                {mojosVal}
               </Text>
               <Text
                 style={{
@@ -235,7 +236,7 @@ const WalletBalance = (props) => {
                 marginTop: 8,
               }}
             >
-              {convertMojoToChia(chiaCoins)}
+              {chiaCoins}
             </Text>
             <Text
               style={{
@@ -264,7 +265,8 @@ const WalletBalance = (props) => {
               marginTop: 8,
             }}
           >
-            {(chiaCoins / 10 ** 12).toFixed(2)}
+            {chiaCoins.toFixed(2)}
+            {/* {(chiaCoins / 10 ** 12).toFixed(2)} */}
           </Text>
           <Text
             style={{

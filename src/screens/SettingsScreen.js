@@ -1,7 +1,10 @@
 import React, { useContext, useState } from 'react';
 
 import { SafeAreaView, FlatList, View } from 'react-native';
-import { Card, FAB, TouchableRipple ,
+import {
+  Card,
+  FAB,
+  TouchableRipple,
   Title,
   Button,
   Paragraph,
@@ -64,7 +67,7 @@ const Settings = () => {
           right: 0,
         }}
       >
-        Powered by XCHscan.com APIs
+        Powered by spacescan.io
       </Text>
     </SafeAreaView>
   );

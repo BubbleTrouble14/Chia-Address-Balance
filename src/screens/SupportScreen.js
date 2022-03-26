@@ -85,6 +85,28 @@ const SupportScreen = () => {
             buttonStyle={{ backgroundColor: '#5865F2', borderRadius: 8 }}
           />
         </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginTop: 32,
+          }}
+        >
+          <Button
+            onPress={() => {
+              Linking.canOpenURL('https://www.spacescan.io/').then((supported) => {
+                if (supported) {
+                  Linking.openURL('https://www.spacescan.io/');
+                } else {
+                  console.log("Don't know how to open URI");
+                }
+              });
+            }}
+            // icon={<MaterialCommunityIcons name="discord" size={36} color="#fff" />}
+            title="spacescan.io"
+            buttonStyle={{ backgroundColor: '#131C23', borderRadius: 8 }}
+          />
+        </View>
       </View>
     </SafeAreaView>
   );
