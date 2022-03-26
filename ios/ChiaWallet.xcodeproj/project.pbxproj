@@ -17,22 +17,22 @@
 		259602323D4E415087452D29 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AA9F34FD4B548D185AF5D82 /* EvilIcons.ttf */; };
 		3052180F96FE41B783C993FE /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B3EF08FAF464D319594BBCA /* Entypo.ttf */; };
 		3104992AE2134DF3BF976D42 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F30795623BB441A2876FAF1D /* MaterialIcons.ttf */; };
+		36895F89F09E157986787B73 /* libPods-ChiaWallet-ChiaWalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FA65932047BB05DAA4F7818 /* libPods-ChiaWallet-ChiaWalletTests.a */; };
 		5BAFACE4915149388F8332CA /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 387A6BD279D64A6DB932A80B /* Feather.ttf */; };
 		611990AA78554C9CA4B24133 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4EBE12F8B041CA9EB96CD8 /* FontAwesome5_Solid.ttf */; };
 		6F4EBEB16E16450BA50799BC /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2DB8F1F73F8F4680AB759FE2 /* SimpleLineIcons.ttf */; };
-		7094DBECC1144D17248C2CC9 /* libPods-ChiaWallet-ChiaWalletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E0DBE20688424BA71E65775 /* libPods-ChiaWallet-ChiaWalletTests.a */; };
 		76E21F01F42E4A6A8ED681CB /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AECE7807A5C444A9F507BD1 /* MaterialCommunityIcons.ttf */; };
 		8468097A2187420998DD2647 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E565095B53F54E319F8574C2 /* FontAwesome.ttf */; };
 		8AC70F85CBBC406792F14C9C /* Heebo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0D77996AF84D4CF48EF69A97 /* Heebo-Regular.ttf */; };
 		A49EC58CABA94EEA9164614B /* Heebo-Extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5B019CFDAC1F4900A827215C /* Heebo-Extrabold.ttf */; };
 		A9C94DE4985C4D718D3E7B40 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2273BCD5AD59490FBA6D0DC8 /* Octicons.ttf */; };
+		C433EB205C1CD9FD676DE9A6 /* libPods-ChiaWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 72AC34C453F45C7F2C9619A7 /* libPods-ChiaWallet.a */; };
 		CA7ACD90F22D43D4B69187A4 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 59D244CE3BFA495A94590041 /* Zocial.ttf */; };
 		F4A42337D3834C1589F6EB08 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 88A18EA279DF470DA85A71E7 /* Fontisto.ttf */; };
 		F979FBDBDD3A4175A751F825 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 16E85547C0974C3C943EAC75 /* Foundation.ttf */; };
 		FCBF6F6A271EFEF7005369F4 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FCBF6F69271EFEF6005369F4 /* RNBackgroundFetch+AppDelegate.m */; };
 		FCBF6F722726B880005369F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCBF6F712726B880005369F4 /* Assets.xcassets */; };
 		FCBF6F752726BEC8005369F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		FF38D385DD500F6FA5135E85 /* libPods-ChiaWallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F029A94B19B4AE28775BCEE /* libPods-ChiaWallet.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,31 +50,31 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* ChiaWalletTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChiaWalletTests.m; sourceTree = "<group>"; };
 		0D77996AF84D4CF48EF69A97 /* Heebo-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Regular.ttf"; path = "../assets/fonts/Heebo-Regular.ttf"; sourceTree = "<group>"; };
+		0E7058AB133BF94682663445 /* Pods-ChiaWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet.debug.xcconfig"; path = "Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* ChiaWallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChiaWallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ChiaWallet/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ChiaWallet/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ChiaWallet/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ChiaWallet/main.m; sourceTree = "<group>"; };
 		16E85547C0974C3C943EAC75 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		1875E11B027942CF909A4DC8 /* Pods-ChiaWallet-ChiaWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet-ChiaWalletTests.release.xcconfig"; path = "Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		1B3EF08FAF464D319594BBCA /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		1E52522FDBF8F7B6AEA1F788 /* Pods-ChiaWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet.release.xcconfig"; path = "Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet.release.xcconfig"; sourceTree = "<group>"; };
 		2273BCD5AD59490FBA6D0DC8 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		2AA9F34FD4B548D185AF5D82 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2AECE7807A5C444A9F507BD1 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		2BD4EEB8905570D28F9CD11E /* Pods-ChiaWallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet.release.xcconfig"; path = "Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet.release.xcconfig"; sourceTree = "<group>"; };
 		2DB8F1F73F8F4680AB759FE2 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		37EB7D347003838439E2EEFD /* Pods-ChiaWallet-ChiaWalletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet-ChiaWalletTests.release.xcconfig"; path = "Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests.release.xcconfig"; sourceTree = "<group>"; };
 		387A6BD279D64A6DB932A80B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		3B4EBE12F8B041CA9EB96CD8 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		44C223158968B82AC0FE2534 /* Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig"; path = "Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		59D244CE3BFA495A94590041 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		5B019CFDAC1F4900A827215C /* Heebo-Extrabold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Heebo-Extrabold.ttf"; path = "../assets/fonts/Heebo-Extrabold.ttf"; sourceTree = "<group>"; };
 		5D1ACECA7AFE44BFB14E8C9D /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		6F029A94B19B4AE28775BCEE /* libPods-ChiaWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChiaWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		769852D4B60203613925DF14 /* Pods-ChiaWallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet.debug.xcconfig"; path = "Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet.debug.xcconfig"; sourceTree = "<group>"; };
+		72AC34C453F45C7F2C9619A7 /* libPods-ChiaWallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChiaWallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		788910CE5927453C893C809B /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ChiaWallet/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8748CDC3579E5F873F3313F9 /* Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig"; path = "Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		88A18EA279DF470DA85A71E7 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		9E0DBE20688424BA71E65775 /* libPods-ChiaWallet-ChiaWalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChiaWallet-ChiaWalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8FA65932047BB05DAA4F7818 /* libPods-ChiaWallet-ChiaWalletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ChiaWallet-ChiaWalletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE805FB12AF24B329AC7E3B3 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		C523D6DB5BA6498AA9C372D3 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		E565095B53F54E319F8574C2 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7094DBECC1144D17248C2CC9 /* libPods-ChiaWallet-ChiaWalletTests.a in Frameworks */,
+				36895F89F09E157986787B73 /* libPods-ChiaWallet-ChiaWalletTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF38D385DD500F6FA5135E85 /* libPods-ChiaWallet.a in Frameworks */,
+				C433EB205C1CD9FD676DE9A6 /* libPods-ChiaWallet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,8 +164,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				6F029A94B19B4AE28775BCEE /* libPods-ChiaWallet.a */,
-				9E0DBE20688424BA71E65775 /* libPods-ChiaWallet-ChiaWalletTests.a */,
+				72AC34C453F45C7F2C9619A7 /* libPods-ChiaWallet.a */,
+				8FA65932047BB05DAA4F7818 /* libPods-ChiaWallet-ChiaWalletTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -205,10 +205,10 @@
 		8DAAFB3D8AB6FB2AD4639B3E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				769852D4B60203613925DF14 /* Pods-ChiaWallet.debug.xcconfig */,
-				1E52522FDBF8F7B6AEA1F788 /* Pods-ChiaWallet.release.xcconfig */,
-				8748CDC3579E5F873F3313F9 /* Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig */,
-				37EB7D347003838439E2EEFD /* Pods-ChiaWallet-ChiaWalletTests.release.xcconfig */,
+				0E7058AB133BF94682663445 /* Pods-ChiaWallet.debug.xcconfig */,
+				2BD4EEB8905570D28F9CD11E /* Pods-ChiaWallet.release.xcconfig */,
+				44C223158968B82AC0FE2534 /* Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig */,
+				1875E11B027942CF909A4DC8 /* Pods-ChiaWallet-ChiaWalletTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -220,12 +220,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "ChiaWalletTests" */;
 			buildPhases = (
-				96BFAC22B894D84CE27972E3 /* [CP] Check Pods Manifest.lock */,
+				708B0FF8D8B204AC7A4640FA /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				FDBA4C454BC7CAA2F6F3ECFF /* [CP] Embed Pods Frameworks */,
-				226E4E9DB27B794608C0E8CF /* [CP] Copy Pods Resources */,
+				4F4AD69C04B85B02D6C38C3F /* [CP] Embed Pods Frameworks */,
+				726102639298A8CD252983D3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -241,14 +241,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "ChiaWallet" */;
 			buildPhases = (
-				2107CFA14508C9A5AFD5D454 /* [CP] Check Pods Manifest.lock */,
+				E8BE1FC319D0CA1EFFDCFDA2 /* [CP] Check Pods Manifest.lock */,
 				FC6E211226985B0300C62937 /* Resources */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				6DAC676924596E2B411341FC /* [CP] Embed Pods Frameworks */,
-				C53F3C07BAA114C1F46F0383 /* [CP] Copy Pods Resources */,
+				4FB63CA0DFB58CE7CFC7450E /* [CP] Embed Pods Frameworks */,
+				1B70EE1C4856E12E64317B40 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -347,46 +347,41 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		2107CFA14508C9A5AFD5D454 /* [CP] Check Pods Manifest.lock */ = {
+		1B70EE1C4856E12E64317B40 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ChiaWallet-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		226E4E9DB27B794608C0E8CF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6DAC676924596E2B411341FC /* [CP] Embed Pods Frameworks */ = {
+		4F4AD69C04B85B02D6C38C3F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4FB63CA0DFB58CE7CFC7450E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -403,7 +398,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		96BFAC22B894D84CE27972E3 /* [CP] Check Pods Manifest.lock */ = {
+		708B0FF8D8B204AC7A4640FA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -425,21 +420,43 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C53F3C07BAA114C1F46F0383 /* [CP] Copy Pods Resources */ = {
+		726102639298A8CD252983D3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet/Pods-ChiaWallet-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E8BE1FC319D0CA1EFFDCFDA2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChiaWallet-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -459,23 +476,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		FDBA4C454BC7CAA2F6F3ECFF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChiaWallet-ChiaWalletTests/Pods-ChiaWallet-ChiaWalletTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -512,7 +512,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8748CDC3579E5F873F3313F9 /* Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig */;
+			baseConfigurationReference = 44C223158968B82AC0FE2534 /* Pods-ChiaWallet-ChiaWalletTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -539,7 +539,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37EB7D347003838439E2EEFD /* Pods-ChiaWallet-ChiaWalletTests.release.xcconfig */;
+			baseConfigurationReference = 1875E11B027942CF909A4DC8 /* Pods-ChiaWallet-ChiaWalletTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -563,11 +563,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 769852D4B60203613925DF14 /* Pods-ChiaWallet.debug.xcconfig */;
+			baseConfigurationReference = 0E7058AB133BF94682663445 /* Pods-ChiaWallet.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 5PSQ3NC8JP;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ChiaWallet/Info.plist;
@@ -575,7 +575,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -592,18 +592,18 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1E52522FDBF8F7B6AEA1F788 /* Pods-ChiaWallet.release.xcconfig */;
+			baseConfigurationReference = 2BD4EEB8905570D28F9CD11E /* Pods-ChiaWallet.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 5PSQ3NC8JP;
 				INFOPLIST_FILE = ChiaWallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
