@@ -66,7 +66,7 @@ class StorageHelper {
 
                     widgetData.fiatString = format.format(widgetData.xchValue * price)
                 } catch (ex: Exception) {
-                    Log.e("Error", ex.message)
+//                    Log.e("Error", ex.message)
                 }
             }
             return widgetData;
